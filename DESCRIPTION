@@ -1,4 +1,4 @@
-Package: bioStatAnki
+Package: biostatAnki
 Type: Package
 Title: Interactive BioStatistics Quiz via Shiny
 Version: 0.1.0
@@ -6,15 +6,14 @@ Authors@R: c(
     person("Data", "Scientist", role = c("aut", "cre"), 
            email = "datascientist@example.com")
 )
-Description: Provides a Shiny application presenting 50 bio-statistics questions in an
-    Anki-like format.  Users write R code to answer each question, and the app
-    evaluates the result against the expected output.  The questions cover
-    descriptive statistics, correlation, and simple linear regression.  Shiny's
-    reactive programming model automatically updates feedback when users
-    submit their answers.
+Description: Provides a Shiny application presenting 50 biostatistics questions
+    in an Anki-like format. Users write R code to answer each question,
+    and the app evaluates the result against the expected output. The
+    questions cover descriptive statistics, correlation, and simple linear
+    regression. Shiny's reactive programming model automatically updates
+    feedback when users submit their answers.
 Depends: R (>= 3.6.0)
-Imports:
-    shiny
+Imports: shiny
 License: MIT
 Encoding: UTF-8
 LazyData: true
