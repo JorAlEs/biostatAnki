@@ -30,8 +30,8 @@ result with the expected answer, providing immediate feedback.
   question, and verify user answers programmatically.  The `run_app()`
   function launches the Shiny app from within an installed package.
 
-* **Package‑based structure:** Organising a Shiny app as an R
-  package is encouraged for larger or long‑term projects【342098001847609†L46-L56】.  The
+* **Package‑based structure:** I tried organising as a Shiny app within a R
+  package as it will be a long-term project .  The
   package contains a `DESCRIPTION` file, exports the key functions via
   the `NAMESPACE` file, and stores data under `inst/extdata/`.
 
@@ -43,7 +43,13 @@ result with the expected answer, providing immediate feedback.
    # install.packages("devtools")
    devtools::install_local("/path/to/bioStatAnki")
    ```
+   
+1b. Install the package from github using `remotes`:
 
+   ```r
+   # install.packages("remotes")
+   remotes::install_github("JorAlEs/bioStatAnki")
+   ```
 2. Launch the Shiny quiz with:
 
    ```r
@@ -71,6 +77,4 @@ Shiny is an R framework that turns R code into interactive web
 applications.  Every Shiny app has a **UI** component that defines
 what the user sees and a **server** function that specifies how the
 app works.  Reactive programming automatically updates outputs when
-inputs change【617308822813800†L48-L53】.  Packaging a Shiny app as an R
-package not only organises the code but also unlocks tooling for
-testing and documentation【342098001847609†L46-L56】.
+inputs change. 
