@@ -3,8 +3,8 @@ Type: Package
 Title: Interactive BioStatistics Quiz via Shiny
 Version: 0.1.0
 Authors@R: c(
-    person("Data", "Scientist", role = c("aut", "cre"), 
-           email = "datascientist@example.com")
+    person("Jorge", "Alcántara", role = c("aut", "cre"), 
+           email = "jorge.alcantara.espinosa@hotmail.com")
 )
 Description: Provides a Shiny application presenting 50 biostatistics questions
     in an Anki-like format. Users write R code to answer each question,
