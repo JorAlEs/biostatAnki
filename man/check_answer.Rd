@@ -2,28 +2,19 @@
 % Please edit documentation in R/check_answer.R
 \name{check_answer}
 \alias{check_answer}
-\title{Evaluate a User's Answer}
+\title{Evaluate a User's Answer (Simple Equality Check)}
 \usage{
-check_answer(user_code, expected)
+check_answer(user_code, expected_output)
 }
 \arguments{
-\item{user_code}{A character string containing R code to evaluate.}
+\item{user_code}{A string with the R code input from the user.}
 
-\item{expected}{The expected result.  Typically numeric but may
-also be a character or logical value.}
+\item{expected_output}{Expected result as character (from the quiz CSV).}
 }
 \value{
-A logical indicating whether the answer is correct.
+TRUE if the result matches the expected output; FALSE otherwise.
 }
 \description{
-This function evaluates a user-provided R expression in a clean
-environment and compares the resulting value to an expected
-output.  It returns `TRUE` when the evaluated result matches
-the expected value (within a small numeric tolerance) and
-`FALSE` otherwise.  Errors generated during evaluation are
-treated as incorrect answers.
-}
-\examples{
-check_answer("mean(c(1,2,3))", 2)  # TRUE
-check_answer("mean(c(1,2,3))", 3)  # FALSE
+This function evaluates R code in a clean environment and compares the result
+to the expected_output as defined in the quiz dataset.
 }

@@ -1,5 +1,5 @@
 id,question,code,expected_output
-11,"Compute the mean of the vector v <- c(4, 1, 9, 8, 8)","v <- c(4, 1, 9, 8, 8); mean(v)",6.0
+1,"Compute the mean of the vector v <- c(4, 1, 9, 8, 8)","v <- c(4, 1, 9, 8, 8); mean(v)",6
 2,"Compute the mean of the vector v <- c(5, 4, 18, 3, 19)","v <- c(5, 4, 18, 3, 19); mean(v)",9.8
 3,"Compute the mean of the vector v <- c(14, 2, 1, 3, 7)","v <- c(14, 2, 1, 3, 7); mean(v)",5.4
 4,"Compute the mean of the vector v <- c(8, 17, 20, 1, 18)","v <- c(8, 17, 20, 1, 18); mean(v)",12.8
@@ -19,43 +19,43 @@ id,question,code,expected_output
 18,"Compute the median of the vector v <- c(5, 19, 14, 4, 5)","v <- c(5, 19, 14, 4, 5); median(v)",5
 19,"Compute the median of the vector v <- c(6, 19, 4, 6, 17)","v <- c(6, 19, 4, 6, 17); median(v)",6
 20,"Compute the median of the vector v <- c(14, 13, 16, 7, 9)","v <- c(14, 13, 16, 7, 9); median(v)",13
-21,"Compute the variance of the vector v <- c(6, 19, 12, 10, 5, 15, 1, 4)","v <- c(6, 19, 12, 10, 5, 15, 1, 4); var(v)",34.9821
-22,"Compute the variance of the vector v <- c(4, 16, 1, 3, 2, 1, 16, 14)","v <- c(4, 16, 1, 3, 2, 1, 16, 14); var(v)",40.0536
-23,"Compute the variance of the vector v <- c(19, 6, 15, 4, 15, 11, 8, 9)","v <- c(19, 6, 15, 4, 15, 11, 8, 9); var(v)",24.4107
-24,"Compute the variance of the vector v <- c(11, 8, 14, 9, 17, 7, 12, 11)","v <- c(11, 8, 14, 9, 17, 7, 12, 11); var(v)",9.4107
-25,"Compute the variance of the vector v <- c(16, 15, 9, 5, 2, 12, 11, 6)","v <- c(16, 15, 9, 5, 2, 12, 11, 6); var(v)",21.125
-26,"Compute the variance of the vector v <- c(16, 4, 9, 7, 15, 6, 7, 9)","v <- c(16, 4, 9, 7, 15, 6, 7, 9); var(v)",14.5714
-27,"Compute the variance of the vector v <- c(20, 4, 9, 12, 11, 17, 10, 16)","v <- c(20, 4, 9, 12, 11, 17, 10, 16); var(v)",27.8393
-28,"Compute the variance of the vector v <- c(8, 20, 2, 10, 15, 20, 4, 20)","v <- c(8, 20, 2, 10, 15, 20, 4, 20); var(v)",49.9821
-29,"Compute the variance of the vector v <- c(6, 9, 3, 19, 3, 6, 4, 13)","v <- c(6, 9, 3, 19, 3, 6, 4, 13); var(v)",32.4107
-30,"Compute the variance of the vector v <- c(11, 2, 14, 19, 9, 13, 3, 1)","v <- c(11, 2, 14, 19, 9, 13, 3, 1); var(v)",36.6964
-31,"Compute the standard deviation of the vector v <- c(9, 3, 11, 4, 16, 12, 12)","v <- c(9, 3, 11, 4, 16, 12, 12); sd(v)",4.4914
-32,"Compute the standard deviation of the vector v <- c(5, 12, 14, 12, 18, 2, 13)","v <- c(5, 12, 14, 12, 18, 2, 13); sd(v)",5.5999
-33,"Compute the standard deviation of the vector v <- c(8, 7, 19, 4, 20, 7, 19)","v <- c(8, 7, 19, 4, 20, 7, 19); sd(v)",6.7309
-34,"Compute the standard deviation of the vector v <- c(14, 6, 18, 10, 7, 4, 12)","v <- c(14, 6, 18, 10, 7, 4, 12); sd(v)",4.7958
-35,"Compute the standard deviation of the vector v <- c(18, 4, 3, 9, 12, 17, 3)","v <- c(18, 4, 3, 9, 12, 17, 3); sd(v)",5.6862
-36,"Compute the standard deviation of the vector v <- c(3, 12, 6, 10, 4, 15, 20)","v <- c(3, 12, 6, 10, 4, 15, 20); sd(v)",6.5219
-37,"Compute the standard deviation of the vector v <- c(1, 12, 7, 6, 20, 19, 16)","v <- c(1, 12, 7, 6, 20, 19, 16); sd(v)",7.3684
-38,"Compute the standard deviation of the vector v <- c(10, 2, 5, 8, 1, 19, 20)","v <- c(10, 2, 5, 8, 1, 19, 20); sd(v)",7.2935
-39,"Compute the standard deviation of the vector v <- c(17, 3, 11, 4, 4, 11, 11)","v <- c(17, 3, 11, 4, 4, 11, 11); sd(v)",4.948
-40,"Compute the standard deviation of the vector v <- c(18, 20, 11, 5, 8, 3, 5)","v <- c(18, 20, 11, 5, 8, 3, 5); sd(v)",6.4977
-41,"Compute the Pearson correlation between x and y","x <- c(1, 2, 3, 4, 5); y <- c(2, 4, 6, 8, 10); cor(x, y)",1
-42,"Compute the Pearson correlation between x and y","x <- c(1, 3, 5, 7, 9); y <- c(9, 7, 5, 3, 1); cor(x, y)",-1
-43,"Compute the Pearson correlation between x and y","x <- c(2, 4, 6, 8); y <- c(1, 3, 5, 7); cor(x, y)",1
-44,"Compute the Pearson correlation between x and y","x <- c(5, 6, 7, 8); y <- c(10, 12, 14, 16); cor(x, y)",1
-45,"Compute the Pearson correlation between x and y","x <- c(1, 1, 2, 2, 3, 3); y <- c(3, 3, 2, 2, 1, 1); cor(x, y)",-1
-46,"Fit a linear model and report the slope of x","x <- c(1,2,3,4,5); y <- c(2,4,6,8,10); coef(lm(y ~ x))[2]",2
-47,"Fit a linear model and report the slope of x","x <- c(1,2,3,4,5); y <- c(3,5,7,9,11); coef(lm(y ~ x))[2]",2
-48,"Fit a linear model and report the slope of x","x <- c(1,2,3,4); y <- c(5,7,9,11); coef(lm(y ~ x))[2]",2
-49,"Fit a linear model and report the slope of x","x <- c(10,20,30,40); y <- c(20,40,60,80); coef(lm(y ~ x))[2]",2
-50,"Fit a linear model and report the slope of x","x <- c(2,4,6,8); y <- c(5,8,11,14); coef(lm(y ~ x))[2]",1.5
-51,"Create a vector x with numbers from 1 to 10","x <- 1:10; x",1:10
-52,"Create a sequence of even numbers from 2 to 20","x <- seq(2, 20, by = 2); x",seq(2, 20, by = 2)
-53,"Create a vector of 5 repetitions of the value 7","x <- rep(7, 5); x",rep(7, 5)
-54,"Extract the second column from the data.frame df <- data.frame(a = 1:3, b = 4:6)","df <- data.frame(a = 1:3, b = 4:6); df[[2]]",c(4,5,6)
-55,"Extract the column named 'b' from df <- data.frame(a = 1:3, b = 4:6)","df <- data.frame(a = 1:3, b = 4:6); df$b",c(4,5,6)
+21,"Compute the variance of the vector v <- c(6, 19, 12, 10, 5, 15, 1, 4)","v <- c(6, 19, 12, 10, 5, 15, 1, 4); var(v)",37.1428571428571
+22,"Compute the variance of the vector v <- c(4, 16, 1, 3, 2, 1, 16, 14)","v <- c(4, 16, 1, 3, 2, 1, 16, 14); var(v)",47.5535714285714
+23,"Compute the variance of the vector v <- c(19, 6, 15, 4, 15, 11, 8, 9)","v <- c(19, 6, 15, 4, 15, 11, 8, 9); var(v)",26.125
+24,"Compute the variance of the vector v <- c(11, 8, 14, 9, 17, 7, 12, 11)","v <- c(11, 8, 14, 9, 17, 7, 12, 11); var(v)",10.6964285714286
+25,"Compute the variance of the vector v <- c(16, 15, 9, 5, 2, 12, 11, 6)","v <- c(16, 15, 9, 5, 2, 12, 11, 6); var(v)",24.2857142857143
+26,"Compute the variance of the vector v <- c(16, 4, 9, 7, 15, 6, 7, 9)","v <- c(16, 4, 9, 7, 15, 6, 7, 9); var(v)",18.125
+27,"Compute the variance of the vector v <- c(20, 4, 9, 12, 11, 17, 10, 16)","v <- c(20, 4, 9, 12, 11, 17, 10, 16); var(v)",25.9821428571429
+28,"Compute the variance of the vector v <- c(8, 20, 2, 10, 15, 20, 4, 20)","v <- c(8, 20, 2, 10, 15, 20, 4, 20); var(v)",54.8392857142857
+29,"Compute the variance of the vector v <- c(6, 9, 3, 19, 3, 6, 4, 13)","v <- c(6, 9, 3, 19, 3, 6, 4, 13); var(v)",31.5535714285714
+30,"Compute the variance of the vector v <- c(11, 2, 14, 19, 9, 13, 3, 1)","v <- c(11, 2, 14, 19, 9, 13, 3, 1); var(v)",42
+31,"Compute the standard deviation of the vector v <- c(9, 3, 11, 4, 16, 12, 12)","v <- c(9, 3, 11, 4, 16, 12, 12); sd(v)",4.64962876142253
+32,"Compute the standard deviation of the vector v <- c(5, 12, 14, 12, 18, 2, 13)","v <- c(5, 12, 14, 12, 18, 2, 13); sd(v)",5.49025110016447
+33,"Compute the standard deviation of the vector v <- c(8, 7, 19, 4, 20, 7, 19)","v <- c(8, 7, 19, 4, 20, 7, 19); sd(v)",6.97614984548545
+34,"Compute the standard deviation of the vector v <- c(14, 6, 18, 10, 7, 4, 12)","v <- c(14, 6, 18, 10, 7, 4, 12); sd(v)",4.91353814911995
+35,"Compute the standard deviation of the vector v <- c(18, 4, 3, 9, 12, 17, 3)","v <- c(18, 4, 3, 9, 12, 17, 3); sd(v)",6.45128263363555
+36,"Compute the standard deviation of the vector v <- c(3, 12, 6, 10, 4, 15, 20)","v <- c(3, 12, 6, 10, 4, 15, 20); sd(v)",6.1913918736689
+37,"Compute the standard deviation of the vector v <- c(1, 12, 7, 6, 20, 19, 16)","v <- c(1, 12, 7, 6, 20, 19, 16); sd(v)",7.18463970001611
+38,"Compute the standard deviation of the vector v <- c(10, 2, 5, 8, 1, 19, 20)","v <- c(10, 2, 5, 8, 1, 19, 20); sd(v)",7.65319727770221
+39,"Compute the standard deviation of the vector v <- c(17, 3, 11, 4, 4, 11, 11)","v <- c(17, 3, 11, 4, 4, 11, 11); sd(v)",5.18698003705064
+40,"Compute the standard deviation of the vector v <- c(18, 20, 11, 5, 8, 3, 5)","v <- c(18, 20, 11, 5, 8, 3, 5); sd(v)",6.68331255192114
+41,Create a vector x with numbers 1:10,x <- 1:10; x,vector
+42,Compute the Pearson correlation between x and y,"x <- c(1, 3, 5, 7, 9); y <- c(9, 7, 5, 3, 1); cor(x, y)",-1
+43,Compute the Pearson correlation between x and y,"x <- c(2, 4, 6, 8); y <- c(1, 3, 5, 7); cor(x, y)",1
+44,Compute the Pearson correlation between x and y,"x <- c(5, 6, 7, 8); y <- c(10, 12, 14, 16); cor(x, y)",1
+45,Compute the Pearson correlation between x and y,"x <- c(1, 1, 2, 2, 3, 3); y <- c(3, 3, 2, 2, 1, 1); cor(x, y)",-1
+46,Fit a linear model and report the slope of x,"x <- c(1,2,3,4,5); y <- c(2,4,6,8,10); coef(lm(y ~ x))[2]",2
+47,Fit a linear model and report the slope of x,"x <- c(1,2,3,4,5); y <- c(3,5,7,9,11); coef(lm(y ~ x))[2]",2
+48,Fit a linear model and report the slope of x,"x <- c(1,2,3,4); y <- c(5,7,9,11); coef(lm(y ~ x))[2]",2
+49,Fit a linear model and report the slope of x,"x <- c(10,20,30,40); y <- c(20,40,60,80); coef(lm(y ~ x))[2]",2
+50,Fit a linear model and report the slope of x,"x <- c(2,4,6,8); y <- c(5,8,11,14); coef(lm(y ~ x))[2]",1.5
+51,Create a vector x with numbers from 1 to 10,x <- 1:10; x,vector
+52,Create a sequence of even numbers from 2 to 20,"x <- seq(2, 20, by = 2); x",vector
+53,Create a vector of 5 repetitions of the value 7,"x <- rep(7, 5); x",vector
+54,"Extract the second column from the data.frame df <- data.frame(a = 1:3, b = 4:6)","df <- data.frame(a = 1:3, b = 4:6); df[[2]]",vector
+55,"Extract the column named 'b' from df <- data.frame(a = 1:3, b = 4:6)","df <- data.frame(a = 1:3, b = 4:6); df$b",vector
 56,"Calculate the sum of the vector x <- c(2, 4, 6, 8)","x <- c(2, 4, 6, 8); sum(x)",20
-57,"Create a matrix with 2 rows and 3 columns filled with 1 to 6","matrix(1:6, nrow = 2, byrow = TRUE)",matrix(1:6, nrow = 2, byrow = TRUE)
+57,Create a matrix with 2 rows and 3 columns filled with 1 to 6,"matrix(1:6, nrow = 2, byrow = TRUE)",matrix
 58,"Extract the element in the first row and second column of the matrix m <- matrix(1:9, nrow = 3)","m <- matrix(1:9, nrow = 3); m[1,2]",4
 59,"Compute the interquartile range of x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9)","x <- c(1,2,3,4,5,6,7,8,9); IQR(x)",4
 60,"Count the number of missing values in x <- c(1, NA, 3, NA, 5)","x <- c(1, NA, 3, NA, 5); sum(is.na(x))",2
