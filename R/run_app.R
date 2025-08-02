@@ -1,6 +1,6 @@
-#' Launch the BioStatAnki Shiny App
+#' Launch the biostatAnki Shiny App
 #'
-#' This helper starts the Shiny application shipped with **bioStatAnki**.
+#' This helper starts the Shiny application shipped with **biostatAnki**.
 #' It performs extra validation (dependencies, directory, interactive
 #' session), chooses smart defaults for host/port, and always opens the
 #' browser unless run in a non-interactive session (e.g. Rscript).
@@ -8,7 +8,7 @@
 #' @param host Character. Network interface to bind.  
 #'             Default "0.0.0.0" so it works inside Docker or on-prem servers. 
 #' @param port Integer. Port to listen on.  
-#'             Default uses the `BIOSTATANKI_PORT` env-var when set, else
+#'             Default uses the `biostatAnki_PORT` env-var when set, else
 #'             a random available port. 
 #' @param launch.browser Logical. Force opening the system browser.  
 #'             Defaults to TRUE in interactive sessions.
@@ -31,20 +31,20 @@ run_app <- function(host = "0.0.0.0",
   # ---- 2. Locate app directory -------------------------------------------
   app_dir <- system.file("app", package = "biostatAnki")
   if (app_dir == "") {
-    stop("Cannot find Shiny app directory. Try reinstalling 'bioStatAnki'.",
+    stop("Cannot find Shiny app directory. Try reinstalling 'biostatAnki'.",
          call. = FALSE)
   }
   
   # ---- 3. Choose port -----------------------------------------------------
   if (is.null(port)) {
-    port_env <- Sys.getenv("BIOSTATANKI_PORT", unset = NA)
+    port_env <- Sys.getenv("biostatAnki_PORT", unset = NA)
     port     <- if (is.na(port_env)) httpuv::randomPort() else as.integer(port_env)
   }
   
   # ---- 4. Friendly banner -------------------------------------------------
   if (!quiet) {
     msg <- sprintf(
-      "\n▶ Starting BioStatAnki app  •  Host: %s  •  Port: %s\n", host, port
+      "\n▶ Starting biostatAnki app  •  Host: %s  •  Port: %s\n", host, port
     )
     cat(msg)
   }

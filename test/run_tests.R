@@ -1,12 +1,12 @@
 #!/usr/bin/env Rscript
-## Simple test script for the bioStatAnki package
+## Simple test script for the biostatAnki package
 ##
 ## This script performs a few sanity checks to verify that the
 ## functions included in the package are working as expected.  Run
 ## it with Rscript from the package root:
 ##   Rscript test/run_tests.R
 
-library(bioStatAnki)
+library(biostatAnki)
 
 # 1. Load questions and check count
 qs <- load_questions()

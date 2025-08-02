@@ -16,7 +16,7 @@
 ##' @return A `data.frame` containing all quiz questions.
 ##' @export
 load_questions <- function() {
-  csv_path <- system.file("extdata", "questions.csv", package = "bioStatAnki")
+  csv_path <- system.file("extdata", "questions.csv", package = "biostatAnki")
   if (csv_path == "") {
     stop("Questions file not found in package resources.")
   }

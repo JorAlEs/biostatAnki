@@ -1,32 +1,39 @@
-##' Evaluate a User's Answer
-##'
-##' This function evaluates a user-provided R expression in a clean
-##' environment and compares the resulting value to an expected
-##' output.  It returns `TRUE` when the evaluated result matches
-##' the expected value (within a small numeric tolerance) and
-##' `FALSE` otherwise.  Errors generated during evaluation are
-##' treated as incorrect answers.
-##'
-##' @param user_code A character string containing R code to evaluate.
-##' @param expected The expected result.  Typically numeric but may
-##'   also be a character or logical value.
-##' @return A logical indicating whether the answer is correct.
-##' @examples
-##' check_answer("mean(c(1,2,3))", 2)  # TRUE
-##' check_answer("mean(c(1,2,3))", 3)  # FALSE
-##' @export
-check_answer <- function(user_code, expected) {
-  # Evaluate code safely in a new environment to avoid interfering
-  # with global state
+#' Evaluate a User's Answer (Simple Equality Check)
+#'
+#' This function evaluates R code in a clean environment and compares the result
+#' to the expected_output as defined in the quiz dataset.
+#'
+#' @param user_code A string with the R code input from the user.
+#' @param expected_output Expected result as character (from the quiz CSV).
+#' @return TRUE if the result matches the expected output; FALSE otherwise.
+#' @export
+check_answer <- function(user_code, expected_output) {
   env <- new.env(parent = baseenv())
   result <- try(eval(parse(text = user_code), envir = env), silent = TRUE)
-  if (inherits(result, "try-error")) {
-    return(FALSE)
+
+  if (inherits(result, "try-error")) return(FALSE)
+
+  # Try to convert expected_output to numeric
+  expected_num <- suppressWarnings(as.numeric(expected_output))
+
+  # Numeric match (with tolerance)
+  if (!is.na(expected_num) && is.numeric(result)) {
+    return(isTRUE(all.equal(as.numeric(result), expected_num, tolerance = 1e-6)))
   }
-  # Convert both values to numeric if possible
-  if (is.numeric(expected) && is.numeric(result)) {
-    return(isTRUE(all.equal(as.numeric(result), as.numeric(expected), tolerance = 1e-06)))
+
+  # Character match
+  if (is.character(expected_output) && is.character(result)) {
+    return(identical(trimws(result), trimws(expected_output)))
   }
-  # Fallback to strict comparison
-  return(identical(result, expected))
+
+  # Fallback to identical match
+  identical(result, expected_output)
 }
+#' @examples
+#' # Example usage:
+#' check_answer("mean(c(1,2,3))", "2")
+#' check_answer("mean(c(1,2,3))", "3")
+#' check_answer("c('apple', 'banana')", "c('apple', 'banana')")
+#' check_answer("c(TRUE, FALSE)", "c(TRUE, FALSE)")
+#' check_answer("c(1, 2, 3)", "c(1, 2, 3)")
+#' check_answer("c(1, 2, 3)", "c(1, 2, 4)")  # Should return FALSE  
