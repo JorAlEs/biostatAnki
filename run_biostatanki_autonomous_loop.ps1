@@ -2,34 +2,7 @@ $repoPath = "C:\Users\Jorge\Documents\Proyectos\biostatanki\biostatAnki"
 $logPath = Join-Path $repoPath "autonomous_runtime.log"
 $promptFile = Join-Path $repoPath "claude_cycle_prompt.txt"
 
-$cyclePrompt = @"
-Run one autonomous maintenance cycle on the local repo at:
-
-C:\Users\Jorge\Documents\Proyectos\biostatanki\biostatAnki
-
-Instructions:
-- Inspect the real current repository state first.
-- Ignore any prior summary unless verified from files.
-- Choose exactly one small high-value improvement only.
-- Implement it carefully.
-- Validate it with the most relevant available checks.
-- If the result is valid and the repo has meaningful changes, stage and commit them autonomously.
-- Update AUTONOMOUS_REVIEW_STATE.md.
-- End with the structured cycle report.
-
-Priority order:
-correctness, tests, security, reproducibility, CI/lint reliability, maintainability, docs, justified modernization.
-
-Git rules:
-- Commit only if changes are meaningful and validated.
-- Do not commit logs, cache, temp files, or unrelated churn.
-- Use a concise conventional commit message.
-- If validation fails and cannot be fixed in the same cycle, do not commit.
-
-Do not force a change if nothing safe and useful is warranted.
-"@
-
-Set-Content -Path $promptFile -Value $cyclePrompt -Encoding UTF8
+# Prompt is read from claude_cycle_prompt.txt — edit that file to change cycle instructions.
 
 function Test-AllowedWindow {
     param([datetime]$Now)
