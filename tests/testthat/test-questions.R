@@ -3,6 +3,42 @@ test_that("all questions are valid", {
   expect_true(all(qdf$valid))
 })
 
+# --- run_app ------------------------------------------------------------------
+
+test_that("run_app delegates to shiny::runApp with resolved defaults", {
+  captured <- list()
+
+  result <- with_mocked_bindings(
+    with_mocked_bindings(
+      run_app(
+        host = "127.0.0.1",
+        port = NULL,
+        launch.browser = FALSE,
+        quiet = TRUE,
+        test_flag = "x"
+      ),
+      runApp = function(appDir, host, port, launch.browser, ...) {
+        captured$appDir <<- appDir
+        captured$host <<- host
+        captured$port <<- port
+        captured$launch.browser <<- launch.browser
+        captured$dots <<- list(...)
+        "ok"
+      },
+      .package = "shiny"
+    ),
+    randomPort = function() 4321L,
+    .package = "httpuv"
+  )
+
+  expect_equal(result, "ok")
+  expect_true(nzchar(captured$appDir))
+  expect_equal(captured$host, "127.0.0.1")
+  expect_equal(captured$port, 4321L)
+  expect_false(captured$launch.browser)
+  expect_equal(captured$dots$test_flag, "x")
+})
+
 # --- load_questions -----------------------------------------------------------
 
 test_that("load_questions returns a data.frame with required columns", {

@@ -35,7 +35,7 @@ Stable confirmed facts. Update only when something here actually changes.
 
 - **Framework:** testthat edition 3
 - **Entry point:** `tests/testthat.R` → `test_check("biostatAnki")`
-- **Test file:** `tests/testthat/test-questions.R` — 24 tests covering all exported functions
+- **Test file:** `tests/testthat/test-questions.R` — 30 tests covering all exported functions (including `run_app()` smoke test)
 - **`test/` directory removed** (was non-standard duplicate)
 
 ## CI
@@ -48,10 +48,10 @@ Stable confirmed facts. Update only when something here actually changes.
 - 1 note: timestamp verification (environmental, not a code issue)
 - `.Rbuildignore` exists and covers non-standard top-level files and hidden dirs
 
-## Open Candidates (as of Cycle 7)
+## Open Candidates (as of Cycle 8)
 
 1. No `renv.lock` — reproducibility gap for contributors
 2. `validate_questions()` internal `compare()` duplicates logic from `check_answer()` — refactor opportunity
 3. `DESCRIPTION` Version `0.1.0` — consider bumping to `0.2.0`
-4. No `run_app()` smoke test
+4. Add explicit `run_app()` failure-path tests (missing app dir / missing shiny) for stronger robustness
 5. Consider `pkgdown` site for rendered documentation
