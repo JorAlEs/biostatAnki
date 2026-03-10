@@ -35,7 +35,7 @@ Stable confirmed facts. Update only when something here actually changes.
 
 - **Framework:** testthat edition 3
 - **Entry point:** `tests/testthat.R` → `test_check("biostatAnki")`
-- **Test file:** `tests/testthat/test-questions.R` — 34 tests covering all exported functions (including `run_app()` smoke/failure paths and invisible return contract)
+- **Test file:** `tests/testthat/test-questions.R` — 36 tests covering all exported functions (including `run_app()` smoke/failure paths, invisible return contract, and `validate_questions()` tolerance wiring)
 - **`test/` directory removed** (was non-standard duplicate)
 
 ## CI
@@ -48,10 +48,10 @@ Stable confirmed facts. Update only when something here actually changes.
 - 1 note: timestamp verification (environmental, not a code issue)
 - `.Rbuildignore` exists and covers non-standard top-level files and hidden dirs
 
-## Open Candidates (as of Cycle 10)
+## Open Candidates (as of Cycle 11)
 
 1. No `renv.lock` — reproducibility gap for contributors
-2. `validate_questions()` internal `compare()` duplicates logic from `check_answer()` — refactor opportunity
-3. `DESCRIPTION` Version `0.1.0` — consider bumping to `0.2.0`
-4. `fix_questions.R` uses `here`, `readr`, `dplyr` as dev-only deps without formal package declaration
-5. Consider `pkgdown` site for rendered documentation
+2. `DESCRIPTION` Version `0.1.0` — consider bumping to `0.2.0`
+3. `fix_questions.R` uses `here`, `readr`, `dplyr` as dev-only deps without formal package declaration
+4. Consider `pkgdown` site for rendered documentation
+5. `validate_questions()` evaluates code in `globalenv()` while `check_answer()` uses `baseenv()` — potential consistency gap
