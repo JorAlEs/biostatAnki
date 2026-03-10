@@ -108,6 +108,29 @@ test_that("check_answer can use stats functions without global leakage", {
   expect_true(check_answer("median(c(1, 2, 3))", "2"))
 })
 
+test_that(".quiz_eval_parent falls back to stats namespace when stats is detached", {
+  if (!("package:stats" %in% search())) {
+    skip("package:stats is not attached in this session")
+  }
+
+  on.exit({
+    if (!("package:stats" %in% search())) {
+      library(stats)
+    }
+  }, add = TRUE)
+
+  detached <- tryCatch({
+    suppressWarnings(detach("package:stats", character.only = TRUE))
+    TRUE
+  }, error = function(...) FALSE)
+
+  if (!detached || "package:stats" %in% search()) {
+    skip("Could not detach package:stats in this session")
+  }
+
+  expect_identical(biostatAnki:::.quiz_eval_parent(), asNamespace("stats"))
+})
+
 test_that("check_answer returns FALSE for syntax errors", {
   expect_false(check_answer("mean(c(1,", "1"))
 })
