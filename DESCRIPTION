@@ -11,10 +11,11 @@ Description: Provides a Shiny application presenting 60 biostatistics questions
     regression. Shiny's reactive programming model automatically updates
     feedback when users submit their answers.
 Depends: R (>= 3.6.0)
-Imports: shiny
-License: MIT
+Imports:
+    httpuv,
+    shiny
+License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
 Suggests: 
     knitr,
     rmarkdown,

@@ -95,7 +95,8 @@ while ($true) {
 
         Push-Location $repoPath
         try {
-            & claude --print --dangerously-skip-permissions `
+            $claudeExe = "$env:APPDATA\npm\claude.cmd"
+            & $claudeExe --print --dangerously-skip-permissions `
                 -p (Get-Content $promptFile -Raw) `
                 2>&1 | Tee-Object -FilePath $logPath -Append
         }
