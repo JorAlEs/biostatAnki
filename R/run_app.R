@@ -44,7 +44,7 @@ run_app <- function(host = "0.0.0.0",
   # ---- 4. Friendly banner -------------------------------------------------
   if (!quiet) {
     msg <- sprintf(
-      "\n▶ Starting biostatAnki app  •  Host: %s  •  Port: %s\n", host, port
+      "\n\u25b6 Starting biostatAnki app  \u2022  Host: %s  \u2022  Port: %s\n", host, port
     )
     cat(msg)
   }
