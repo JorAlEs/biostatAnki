@@ -142,7 +142,7 @@
 
 **Validation result:** PASSED — `devtools::check()` → 0 errors | 0 warnings | 1 note (harmless timestamp) ✅
 
-**Commit hash:** (pending)
+**Commit hash:** 18427f2
 
 **Top next candidates:**
 1. No `renv.lock` — reproducibility gap for contributors.
