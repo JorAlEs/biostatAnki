@@ -39,6 +39,31 @@ test_that("run_app delegates to shiny::runApp with resolved defaults", {
   expect_equal(captured$dots$test_flag, "x")
 })
 
+test_that("run_app errors when shiny is unavailable", {
+  expect_error(
+    with_mocked_bindings(
+      run_app(quiet = TRUE),
+      .has_namespace = function(...) FALSE,
+      .package = "biostatAnki"
+    ),
+    "Package 'shiny' is required but not installed.",
+    fixed = TRUE
+  )
+})
+
+test_that("run_app errors when packaged app directory is missing", {
+  expect_error(
+    with_mocked_bindings(
+      run_app(quiet = TRUE),
+      .has_namespace = function(...) TRUE,
+      .get_app_dir = function(...) "",
+      .package = "biostatAnki"
+    ),
+    "Cannot find Shiny app directory. Try reinstalling 'biostatAnki'.",
+    fixed = TRUE
+  )
+})
+
 # --- load_questions -----------------------------------------------------------
 
 test_that("load_questions returns a data.frame with required columns", {

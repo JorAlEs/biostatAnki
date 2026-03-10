@@ -17,6 +17,14 @@
 #'
 #' @return Invisibly returns the value from `shiny::runApp()`.
 #' @export
+.has_namespace <- function(pkg) {
+  requireNamespace(pkg, quietly = TRUE)
+}
+
+.get_app_dir <- function() {
+  system.file("app", package = "biostatAnki")
+}
+
 run_app <- function(host = "0.0.0.0",
                     port = NULL,
                     launch.browser = interactive(),
@@ -24,12 +32,12 @@ run_app <- function(host = "0.0.0.0",
                     ...) {
   
   # ---- 1. Dependency check -----------------------------------------------
-  if (!requireNamespace("shiny", quietly = TRUE)) {
+  if (!.has_namespace("shiny")) {
     stop("Package 'shiny' is required but not installed.", call. = FALSE)
   }
   
   # ---- 2. Locate app directory -------------------------------------------
-  app_dir <- system.file("app", package = "biostatAnki")
+  app_dir <- .get_app_dir()
   if (app_dir == "") {
     stop("Cannot find Shiny app directory. Try reinstalling 'biostatAnki'.",
          call. = FALSE)
