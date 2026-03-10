@@ -48,3 +48,25 @@
 5. `test/` directory is now redundant alongside `tests/` — consider cleanup
 
 ---
+
+### Cycle 3 — 2026-03-10
+
+**Timestamp:** 2026-03-10
+
+**Chosen issue:** No CI/CD — tests existed but nothing ran them automatically on push/PR.
+
+**Files changed:**
+- `.github/workflows/R-CMD-check.yaml` — created (triggers on push to main/master/auto/**, PRs to main/master)
+
+**Validation result:** PASSED — local `devtools::check()` → 0 errors ✅ (3 warnings and 4 notes noted below as candidates)
+
+**Commit hash:** fe7e874
+
+**Top next candidates:**
+1. WARNING: Non-ASCII characters (emoji) in `R/run_app.R` and `R/validate_questions.R`
+2. WARNING: `httpuv` used via `::` but not declared in DESCRIPTION Imports
+3. WARNING: `validate_questions.Rd` missing `@param` for `questions_df` and `tolerance`
+4. NOTE: `LazyData: true` in DESCRIPTION but no `data/` directory
+5. NOTE: `License: MIT` should be `License: MIT + file LICENSE` per CRAN standard
+
+---
