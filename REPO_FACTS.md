@@ -35,7 +35,7 @@ Stable confirmed facts. Update only when something here actually changes.
 
 - **Framework:** testthat edition 3
 - **Entry point:** `tests/testthat.R` → `test_check("biostatAnki")`
-- **Test file:** `tests/testthat/test-questions.R` — 39 tests covering all exported functions (including `run_app()` smoke/failure paths, invisible return contract, `.quiz_eval_parent()` fallback behavior, and `validate_questions()` tolerance/global-environment behavior)
+- **Test file:** `tests/testthat/test-questions.R` — 46 tests covering all exported functions (including `run_app()` smoke/failure paths, invisible return contract, `.quiz_eval_parent()` fallback behavior, `validate_questions()` tolerance/global-environment behavior, and comparator edge cases for missing expected outputs plus logical/list fallbacks)
 - **`test/` directory removed** (was non-standard duplicate)
 
 ## CI
@@ -54,4 +54,4 @@ Stable confirmed facts. Update only when something here actually changes.
 2. `DESCRIPTION` Version `0.1.0` — consider bumping to `0.2.0`
 3. `fix_questions.R` uses `here`, `readr`, `dplyr` as dev-only deps without formal package declaration
 4. Consider `pkgdown` site for rendered documentation
-5. Expand comparator edge-case coverage for `.compare_expected_output()` (e.g., NA/logical/list outputs)
+5. `check_answer()` examples still imply expression-string matching for complex outputs (e.g., `c(TRUE, FALSE)`), but comparator does not parse expected-output expressions
