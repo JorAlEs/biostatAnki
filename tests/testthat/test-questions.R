@@ -39,6 +39,17 @@ test_that("run_app delegates to shiny::runApp with resolved defaults", {
   expect_equal(captured$dots$test_flag, "x")
 })
 
+test_that("run_app returns runApp result invisibly", {
+  result <- with_mocked_bindings(
+    withVisible(run_app(port = 1234L, launch.browser = FALSE, quiet = TRUE)),
+    runApp = function(...) "ok",
+    .package = "shiny"
+  )
+
+  expect_equal(result$value, "ok")
+  expect_false(result$visible)
+})
+
 test_that("run_app errors when shiny is unavailable", {
   expect_error(
     with_mocked_bindings(

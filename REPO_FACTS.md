@@ -35,7 +35,7 @@ Stable confirmed facts. Update only when something here actually changes.
 
 - **Framework:** testthat edition 3
 - **Entry point:** `tests/testthat.R` → `test_check("biostatAnki")`
-- **Test file:** `tests/testthat/test-questions.R` — 32 tests covering all exported functions (including `run_app()` smoke and failure paths)
+- **Test file:** `tests/testthat/test-questions.R` — 34 tests covering all exported functions (including `run_app()` smoke/failure paths and invisible return contract)
 - **`test/` directory removed** (was non-standard duplicate)
 
 ## CI
@@ -48,10 +48,10 @@ Stable confirmed facts. Update only when something here actually changes.
 - 1 note: timestamp verification (environmental, not a code issue)
 - `.Rbuildignore` exists and covers non-standard top-level files and hidden dirs
 
-## Open Candidates (as of Cycle 9)
+## Open Candidates (as of Cycle 10)
 
 1. No `renv.lock` — reproducibility gap for contributors
 2. `validate_questions()` internal `compare()` duplicates logic from `check_answer()` — refactor opportunity
-3. `run_app()` docs say return is invisible, but implementation returns `shiny::runApp()` directly
-4. `DESCRIPTION` Version `0.1.0` — consider bumping to `0.2.0`
+3. `DESCRIPTION` Version `0.1.0` — consider bumping to `0.2.0`
+4. `fix_questions.R` uses `here`, `readr`, `dplyr` as dev-only deps without formal package declaration
 5. Consider `pkgdown` site for rendered documentation

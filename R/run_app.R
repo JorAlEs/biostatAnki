@@ -58,11 +58,13 @@ run_app <- function(host = "0.0.0.0",
   }
   
   # ---- 5. Launch ----------------------------------------------------------
-  shiny::runApp(
-    appDir         = app_dir,
-    host           = host,
-    port           = port,
-    launch.browser = launch.browser,
-    ...
+  invisible(
+    shiny::runApp(
+      appDir         = app_dir,
+      host           = host,
+      port           = port,
+      launch.browser = launch.browser,
+      ...
+    )
   )
 }
