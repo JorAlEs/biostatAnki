@@ -20,7 +20,7 @@ validate_questions <- function(
   }
 
   check_row <- function(code, expected) {
-    env <- new.env(parent = globalenv())
+    env <- new.env(parent = .quiz_eval_parent())
     res <- try(eval(parse(text = code), envir = env), silent = TRUE)
     if (inherits(res, "try-error"))
       return(list(ok = FALSE, msg = conditionMessage(attr(res, "condition"))))

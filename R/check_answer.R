@@ -7,8 +7,15 @@
 #' @param expected_output Expected result as character (from the quiz CSV).
 #' @return TRUE if the result matches the expected output; FALSE otherwise.
 #' @export
+.quiz_eval_parent <- function() {
+  if ("package:stats" %in% search()) {
+    return(as.environment("package:stats"))
+  }
+  asNamespace("stats")
+}
+
 check_answer <- function(user_code, expected_output) {
-  env <- new.env(parent = baseenv())
+  env <- new.env(parent = .quiz_eval_parent())
   result <- try(eval(parse(text = user_code), envir = env), silent = TRUE)
 
   if (inherits(result, "try-error")) return(FALSE)

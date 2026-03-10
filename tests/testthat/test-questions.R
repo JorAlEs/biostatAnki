@@ -104,6 +104,10 @@ test_that("check_answer uses numeric tolerance", {
   expect_false(check_answer("mean(c(1, 2, 3))", "2.1"))
 })
 
+test_that("check_answer can use stats functions without global leakage", {
+  expect_true(check_answer("median(c(1, 2, 3))", "2"))
+})
+
 test_that("check_answer returns FALSE for syntax errors", {
   expect_false(check_answer("mean(c(1,", "1"))
 })
@@ -189,4 +193,21 @@ test_that("validate_questions honors tolerance argument", {
 
   expect_false(strict$valid[1])
   expect_true(loose$valid[1])
+})
+
+test_that("validate_questions does not use global variables", {
+  marker <- ".__biostatanki_global_probe__"
+  assign(marker, 2, envir = .GlobalEnv)
+  on.exit(rm(list = marker, envir = .GlobalEnv), add = TRUE)
+
+  probe_df <- data.frame(
+    id = 1L,
+    question = "Global state leakage probe",
+    code = marker,
+    expected_output = "2",
+    stringsAsFactors = FALSE
+  )
+
+  result <- validate_questions(questions_df = probe_df)
+  expect_false(result$valid[1])
 })
