@@ -9,9 +9,17 @@ validate_questions(
   tolerance = 1e-06
 )
 }
+\arguments{
+\item{questions_df}{A data.frame with columns \code{id}, \code{question},
+\code{code}, and \code{expected_output}.  Defaults to
+\code{biostatAnki::load_questions()}.}
+
+\item{tolerance}{Numeric tolerance used when comparing numeric results.
+Default \code{1e-6}.}
+}
 \description{
-Evaluates every code snippet in `questions_df`
-and checks it against `expected_output` via the same
+Evaluates every code snippet in \code{questions_df}
+and checks it against \code{expected_output} via the same
 comparison logic used in the app.
 Returns an invisible data.frame summarising failures.
 }

@@ -13,6 +13,10 @@ check_answer <- function(user_code, expected_output) {
 
   if (inherits(result, "try-error")) return(FALSE)
 
+  # Keyword checks (must come before numeric coercion)
+  if (expected_output == "vector") return(is.atomic(result) && is.null(dim(result)))
+  if (expected_output == "matrix") return(is.matrix(result))
+
   # Try to convert expected_output to numeric
   expected_num <- suppressWarnings(as.numeric(expected_output))
 

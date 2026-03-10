@@ -1,0 +1,14 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.github$
+^\.vscode$
+^AUTONOMOUS_REVIEW_STATE\.md$
+^CLAUDE\.md$
+^REPO_FACTS\.md$
+^README\.md$
+^fix_questions\.R$
+^autonomous_runtime\.log$
+^claude_cycle_prompt\.txt$
+^run_biostatanki_autonomous_loop\.ps1$
+^run_biostatanki_autonomous_loop_safe\.ps1$
+^test$

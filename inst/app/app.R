@@ -48,6 +48,8 @@ server <- function(input, output, session) {
 
   # helper: compare numeric/character equality with tolerance
   compare <- function(result, expected) {
+    if (expected == "vector") return(is.atomic(result) && is.null(dim(result)))
+    if (expected == "matrix") return(is.matrix(result))
     exp_num <- suppressWarnings(as.numeric(expected))
     if (!is.na(exp_num) && is.numeric(result))
       return(isTRUE(all.equal(as.numeric(result), exp_num, tolerance = 1e-6)))

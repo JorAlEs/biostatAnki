@@ -4,6 +4,12 @@
 #' and checks it against `expected_output` via the same
 #' comparison logic used in the app.
 #' Returns an invisible data.frame summarising failures.
+#'
+#' @param questions_df A data.frame with columns \code{id}, \code{question},
+#'   \code{code}, and \code{expected_output}.  Defaults to
+#'   \code{biostatAnki::load_questions()}.
+#' @param tolerance Numeric tolerance used when comparing numeric results.
+#'   Default \code{1e-6}.
 #' @export
 validate_questions <- function(
   questions_df = biostatAnki::load_questions(),
@@ -43,24 +49,17 @@ validate_questions <- function(
     list(ok = TRUE, msg = "")
   }
 
-  # ---- fixed pmap ----
-  res_list <- purrr::pmap(
-    list(
-      code     = questions_df$code,
-      expected = questions_df$expected_output     # <- renamed
-    ),
-    check_row
-  )
+  res_list <- Map(check_row, questions_df$code, questions_df$expected_output)
 
   questions_df$valid  <- vapply(res_list, `[[`, logical(1), "ok")
   questions_df$detail <- vapply(res_list, `[[`, character(1), "msg")
 
   bad <- questions_df[!questions_df$valid, c("id", "question", "detail")]
   if (nrow(bad)) {
-    message("❌  Found ", nrow(bad), " invalid question(s)")
+    message("\u274c  Found ", nrow(bad), " invalid question(s)")
     print(bad, row.names = FALSE)
   } else {
-    message("✅  All questions passed")
+    message("\u2705  All questions passed")
   }
   invisible(questions_df)
 }
