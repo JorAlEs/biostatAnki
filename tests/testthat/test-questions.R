@@ -45,6 +45,17 @@ test_that("check_answer matches character output exactly (trimmed)", {
   expect_false(check_answer("'hello'", "world"))
 })
 
+test_that("check_answer handles 'vector' keyword correctly", {
+  expect_true(check_answer("c(1, 2, 3)", "vector"))
+  expect_true(check_answer("1:5", "vector"))
+  expect_false(check_answer("matrix(1:4, 2, 2)", "vector"))
+})
+
+test_that("check_answer handles 'matrix' keyword correctly", {
+  expect_true(check_answer("matrix(1:4, 2, 2)", "matrix"))
+  expect_false(check_answer("c(1, 2, 3)", "matrix"))
+})
+
 # --- get_question -------------------------------------------------------------
 
 test_that("get_question returns a list with expected elements", {
