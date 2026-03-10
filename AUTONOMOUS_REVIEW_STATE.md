@@ -127,3 +127,28 @@
 5. Consider adding `pkgdown` site or `NEWS.md` for changelog tracking
 
 ---
+
+### Cycle 6 — 2026-03-10
+
+**Timestamp:** 2026-03-10
+
+**Chosen issues (batch):**
+1. Test suite thin — only 1 test; individual functions had zero coverage.
+2. No `NEWS.md` — no standard R package changelog.
+
+**Files changed:**
+- `tests/testthat/test-questions.R` — expanded from 1 to 14 test cases; covers `load_questions()` (schema, row count), `check_answer()` (numeric match, tolerance, wrong answer, syntax/runtime errors, character match), `get_question()` (valid id, invalid id), and `validate_questions()` (bad input types, missing columns, good/bad single row).
+- `NEWS.md` — created; summarises all changes from cycles 1-6.
+
+**Validation result:** PASSED — `devtools::test()` → FAIL 0 | WARN 0 | SKIP 0 | PASS 19; `devtools::check()` → 0 errors | 0 warnings | 1 note (harmless timestamp) ✅
+
+**Commit hash:** (pending)
+
+**Top next candidates:**
+1. `check_answer()` lacks keyword handling for `"vector"` / `"matrix"` (unlike `validate_questions`'s internal `compare()`) — potential silent wrong-answer bug.
+2. No `renv.lock` — reproducibility gap for contributors.
+3. `fix_questions.R` uses `here`, `readr`, `dplyr` without declaration — could mislead contributors.
+4. README has formatting inconsistencies (code blocks outside fenced sections on lines 24-31).
+5. Consider `pkgdown` site for rendered documentation.
+
+---
