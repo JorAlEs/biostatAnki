@@ -142,7 +142,7 @@
 
 **Validation result:** PASSED — `devtools::test()` → FAIL 0 | WARN 0 | SKIP 0 | PASS 19; `devtools::check()` → 0 errors | 0 warnings | 1 note (harmless timestamp) ✅
 
-**Commit hash:** (pending)
+**Commit hash:** dc831be
 
 **Top next candidates:**
 1. `check_answer()` lacks keyword handling for `"vector"` / `"matrix"` (unlike `validate_questions`'s internal `compare()`) — potential silent wrong-answer bug.
