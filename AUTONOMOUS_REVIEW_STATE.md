@@ -49,6 +49,33 @@
 
 ---
 
+### Cycle 4 — 2026-03-10
+
+**Timestamp:** 2026-03-10
+
+**Chosen issues (batch — all DESCRIPTION):**
+1. WARNING: `httpuv` used via `httpuv::randomPort()` in `run_app.R` but not declared in `DESCRIPTION Imports` — R CMD check WARNING and potential `::` failure if shiny not yet attached.
+2. NOTE: `LazyData: true` in DESCRIPTION but no `data/` directory — spurious field.
+3. NOTE: `License: MIT` without `+ file LICENSE` — non-standard per CRAN; LICENSE file had full MIT text (not DCF stub).
+
+**Files changed:**
+- `DESCRIPTION` — added `httpuv` to `Imports`; removed `LazyData: true`; changed `License: MIT` → `License: MIT + file LICENSE`
+- `LICENSE` — replaced full MIT text with proper DCF stub (`YEAR: 2025 / COPYRIGHT HOLDER: Jorge A`)
+
+**Validation result:** PASSED — `devtools::check()` → 0 errors, 2 warnings, 2 notes ✅
+  (warnings are pre-existing non-ASCII and missing Rd @param; notes are hidden dirs and non-standard top-level files — unrelated to this cycle's changes)
+
+**Commit hash:** bb22b40
+
+**Top next candidates:**
+1. WARNING: Non-ASCII characters (emoji) in `R/run_app.R` and `R/validate_questions.R` — replace with `\uXXXX` escapes
+2. WARNING: `validate_questions.Rd` missing `@param` for `questions_df` and `tolerance` — add roxygen2 `@param` tags
+3. NOTE: Non-standard top-level files — add `.Rbuildignore` entries for `AUTONOMOUS_REVIEW_STATE.md`, `CLAUDE.md`, `fix_questions.R`, PowerShell scripts
+4. NOTE: Hidden dirs (`.github`, `.vscode`) flagged — add to `.Rbuildignore`
+5. `test/` directory redundant alongside `tests/` — safe to remove
+
+---
+
 ### Cycle 3 — 2026-03-10
 
 **Timestamp:** 2026-03-10
