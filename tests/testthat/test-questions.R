@@ -155,6 +155,42 @@ test_that("check_answer handles 'matrix' keyword correctly", {
   expect_false(check_answer("c(1, 2, 3)", "matrix"))
 })
 
+test_that("check_answer returns FALSE for missing expected output", {
+  expect_false(check_answer("NA", NA_character_))
+})
+
+test_that("validate_questions marks missing expected output as invalid", {
+  bad_expected_df <- data.frame(
+    id = 1L,
+    question = "Missing expected output",
+    code = "NA",
+    expected_output = NA_character_,
+    stringsAsFactors = FALSE
+  )
+
+  result <- validate_questions(questions_df = bad_expected_df)
+  expect_false(result$valid[1])
+  expect_match(result$detail[1], "^got:")
+})
+
+test_that(".compare_expected_output handles logical and list fallbacks", {
+  expect_true(biostatAnki:::.compare_expected_output(c(TRUE, FALSE), c(TRUE, FALSE)))
+  expect_false(biostatAnki:::.compare_expected_output(c(TRUE, FALSE), c(TRUE, TRUE)))
+
+  expect_true(
+    biostatAnki:::.compare_expected_output(
+      list(alpha = 1L, beta = "x"),
+      list(alpha = 1L, beta = "x")
+    )
+  )
+  expect_false(
+    biostatAnki:::.compare_expected_output(
+      list(alpha = 1L, beta = "x"),
+      list(alpha = 2L, beta = "x")
+    )
+  )
+})
+
 # --- get_question -------------------------------------------------------------
 
 test_that("get_question returns a list with expected elements", {

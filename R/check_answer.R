@@ -24,21 +24,31 @@ check_answer <- function(user_code, expected_output) {
 }
 
 .compare_expected_output <- function(result, expected_output, tolerance = 1e-6) {
-  # Keyword checks (must come before numeric coercion)
-  if (expected_output == "vector") return(is.atomic(result) && is.null(dim(result)))
-  if (expected_output == "matrix") return(is.matrix(result))
-
-  # Try to convert expected_output to numeric
-  expected_num <- suppressWarnings(as.numeric(expected_output))
-
-  # Numeric match (with tolerance)
-  if (!is.na(expected_num) && is.numeric(result)) {
-    return(isTRUE(all.equal(as.numeric(result), expected_num, tolerance = tolerance)))
+  if (length(expected_output) == 1L && is.atomic(expected_output) && is.na(expected_output)) {
+    return(FALSE)
   }
 
-  # Character match
-  if (is.character(expected_output) && is.character(result)) {
-    return(identical(trimws(result), trimws(expected_output)))
+  if (is.character(expected_output) && length(expected_output) == 1L) {
+    expected_chr <- expected_output[[1]]
+
+    if (!is.na(expected_chr)) {
+      # Keyword checks (must come before numeric coercion)
+      if (expected_chr == "vector") return(is.atomic(result) && is.null(dim(result)))
+      if (expected_chr == "matrix") return(is.matrix(result))
+
+      # Try to convert expected_output to numeric
+      expected_num <- suppressWarnings(as.numeric(expected_chr))
+
+      # Numeric match (with tolerance)
+      if (!is.na(expected_num) && is.numeric(result)) {
+        return(isTRUE(all.equal(as.numeric(result), expected_num, tolerance = tolerance)))
+      }
+
+      # Character match
+      if (is.character(result)) {
+        return(identical(trimws(result), trimws(expected_chr)))
+      }
+    }
   }
 
   # Fallback to identical match
