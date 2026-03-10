@@ -174,3 +174,19 @@ test_that("validate_questions marks a bad row as invalid", {
   result <- validate_questions(questions_df = bad_df)
   expect_false(result$valid[1])
 })
+
+test_that("validate_questions honors tolerance argument", {
+  tol_df <- data.frame(
+    id = 1L,
+    question = "Tolerance behavior",
+    code = "2 + 1e-05",
+    expected_output = "2",
+    stringsAsFactors = FALSE
+  )
+
+  strict <- validate_questions(questions_df = tol_df, tolerance = 1e-6)
+  loose <- validate_questions(questions_df = tol_df, tolerance = 1e-4)
+
+  expect_false(strict$valid[1])
+  expect_true(loose$valid[1])
+})

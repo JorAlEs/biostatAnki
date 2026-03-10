@@ -13,6 +13,10 @@ check_answer <- function(user_code, expected_output) {
 
   if (inherits(result, "try-error")) return(FALSE)
 
+  .compare_expected_output(result, expected_output, tolerance = 1e-6)
+}
+
+.compare_expected_output <- function(result, expected_output, tolerance = 1e-6) {
   # Keyword checks (must come before numeric coercion)
   if (expected_output == "vector") return(is.atomic(result) && is.null(dim(result)))
   if (expected_output == "matrix") return(is.matrix(result))
@@ -22,7 +26,7 @@ check_answer <- function(user_code, expected_output) {
 
   # Numeric match (with tolerance)
   if (!is.na(expected_num) && is.numeric(result)) {
-    return(isTRUE(all.equal(as.numeric(result), expected_num, tolerance = 1e-6)))
+    return(isTRUE(all.equal(as.numeric(result), expected_num, tolerance = tolerance)))
   }
 
   # Character match

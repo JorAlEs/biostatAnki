@@ -15,26 +15,6 @@ validate_questions <- function(
   questions_df = biostatAnki::load_questions(),
   tolerance = 1e-6
 ) {
-  compare <- function(result, expected, tol = 1e-6) {
-
-    # --- keyword checks -------------------------------------------
-    if (expected == "vector")
-      return(is.atomic(result) && is.null(dim(result)))   # any atomic vector
-    if (expected == "matrix")
-      return(is.matrix(result))
-
-    # --- numeric with tolerance -----------------------------------
-    exp_num <- suppressWarnings(as.numeric(expected))
-    if (!is.na(exp_num) && is.numeric(result))
-      return(isTRUE(all.equal(as.numeric(result), exp_num, tolerance = tol)))
-
-    # --- exact character match ------------------------------------
-    if (is.character(expected) && is.character(result))
-      return(identical(trimws(result), trimws(expected)))
-
-    # --- fallback --------------------------------------------------
-    identical(result, expected)
-  }
     if (!is.data.frame(questions_df) || !all(c("id", "question", "code", "expected_output") %in% names(questions_df))) {
         stop("Invalid questions_df format. Must contain 'id', 'question', 'code', and 'expected_output' columns.")
   }
@@ -44,7 +24,7 @@ validate_questions <- function(
     res <- try(eval(parse(text = code), envir = env), silent = TRUE)
     if (inherits(res, "try-error"))
       return(list(ok = FALSE, msg = conditionMessage(attr(res, "condition"))))
-    if (!compare(res, expected))
+    if (!.compare_expected_output(res, expected, tolerance = tolerance))
       return(list(ok = FALSE, msg = paste("got:", toString(res))))
     list(ok = TRUE, msg = "")
   }
