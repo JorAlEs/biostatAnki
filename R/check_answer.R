@@ -23,6 +23,26 @@ check_answer <- function(user_code, expected_output) {
   .compare_expected_output(result, expected_output, tolerance = 1e-6)
 }
 
+.safe_eval_expected_output <- function(expected_chr) {
+  parsed <- try(parse(text = expected_chr), silent = TRUE)
+  if (inherits(parsed, "try-error") || length(parsed) != 1L) {
+    return(NULL)
+  }
+
+  eval_env <- new.env(parent = emptyenv())
+  eval_env$c <- base::c
+  eval_env$list <- base::list
+  eval_env$matrix <- base::matrix
+  eval_env$`:` <- base::`:`
+
+  evaluated <- try(eval(parsed[[1]], envir = eval_env), silent = TRUE)
+  if (inherits(evaluated, "try-error")) {
+    return(NULL)
+  }
+
+  evaluated
+}
+
 .compare_expected_output <- function(result, expected_output, tolerance = 1e-6) {
   if (length(expected_output) == 1L && is.atomic(expected_output) && is.na(expected_output)) {
     return(FALSE)
@@ -45,8 +65,18 @@ check_answer <- function(user_code, expected_output) {
       }
 
       # Character match
-      if (is.character(result)) {
-        return(identical(trimws(result), trimws(expected_chr)))
+      if (is.character(result) && length(result) == 1L &&
+          identical(trimws(result), trimws(expected_chr))) {
+        return(TRUE)
+      }
+
+      # Expression-style expected output (for vectors/matrices/lists)
+      expected_evaluated <- .safe_eval_expected_output(expected_chr)
+      if (!is.null(expected_evaluated)) {
+        if (is.numeric(result) && is.numeric(expected_evaluated)) {
+          return(isTRUE(all.equal(result, expected_evaluated, tolerance = tolerance)))
+        }
+        return(identical(result, expected_evaluated))
       }
     }
   }

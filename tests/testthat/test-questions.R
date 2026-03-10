@@ -155,6 +155,17 @@ test_that("check_answer handles 'matrix' keyword correctly", {
   expect_false(check_answer("c(1, 2, 3)", "matrix"))
 })
 
+test_that("check_answer supports expression-style expected outputs", {
+  expect_true(check_answer("c(TRUE, FALSE)", "c(TRUE, FALSE)"))
+  expect_false(check_answer("c(TRUE, FALSE)", "c(TRUE, TRUE)"))
+
+  expect_true(check_answer("c('apple', 'banana')", "c('apple', 'banana')"))
+  expect_false(check_answer("c('apple', 'banana')", "c('apple', 'orange')"))
+
+  expect_true(check_answer("c(1, 2, 3)", "c(1, 2, 3)"))
+  expect_false(check_answer("c(1, 2, 3)", "c(1, 2, 4)"))
+})
+
 test_that("check_answer returns FALSE for missing expected output", {
   expect_false(check_answer("NA", NA_character_))
 })
