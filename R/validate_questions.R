@@ -43,14 +43,7 @@ validate_questions <- function(
     list(ok = TRUE, msg = "")
   }
 
-  # ---- fixed pmap ----
-  res_list <- purrr::pmap(
-    list(
-      code     = questions_df$code,
-      expected = questions_df$expected_output     # <- renamed
-    ),
-    check_row
-  )
+  res_list <- Map(check_row, questions_df$code, questions_df$expected_output)
 
   questions_df$valid  <- vapply(res_list, `[[`, logical(1), "ok")
   questions_df$detail <- vapply(res_list, `[[`, character(1), "msg")
