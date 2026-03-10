@@ -26,3 +26,25 @@
 5. No `renv.lock` — reproducibility gap for contributors
 
 ---
+
+### Cycle 2 — 2026-03-10
+
+**Timestamp:** 2026-03-10
+
+**Chosen issue:** `test/testthat/test-questions.R` in wrong directory — `test_check()` scans `tests/testthat/`, so zero tests were being discovered by `devtools::test()` and `R CMD check`.
+
+**Files changed:**
+- `tests/testthat/test-questions.R` — created (same content as `test/testthat/test-questions.R`)
+
+**Validation result:** PASSED — `devtools::test()` → FAIL 0 | WARN 0 | SKIP 0 | PASS 1 ✅
+
+**Commit hash:** 8680989
+
+**Top next candidates:**
+1. `LazyData: true` in DESCRIPTION but no `data/` directory — causes NOTE in R CMD check
+2. No CI/CD — add `.github/workflows/R-CMD-check.yaml`
+3. `fix_questions.R` uses `here`, `readr`, `dplyr` without declaring them
+4. No `renv.lock` — reproducibility gap for contributors
+5. `test/` directory is now redundant alongside `tests/` — consider cleanup
+
+---
