@@ -35,7 +35,7 @@ Stable confirmed facts. Update only when something here actually changes.
 
 - **Framework:** testthat edition 3
 - **Entry point:** `tests/testthat.R` → `test_check("biostatAnki")`
-- **Test file:** `tests/testthat/test-questions.R` — 46 tests covering all exported functions (including `run_app()` smoke/failure paths, invisible return contract, `.quiz_eval_parent()` fallback behavior, `validate_questions()` tolerance/global-environment behavior, and comparator edge cases for missing expected outputs plus logical/list fallbacks)
+- **Test file:** `tests/testthat/test-questions.R` — 52 tests covering all exported functions (including `run_app()` smoke/failure paths, invisible return contract, `.quiz_eval_parent()` fallback behavior, `validate_questions()` tolerance/global-environment behavior, and comparator edge cases for missing expected outputs plus logical/list and expression-string fallbacks)
 - **`test/` directory removed** (was non-standard duplicate)
 
 ## CI
@@ -48,10 +48,10 @@ Stable confirmed facts. Update only when something here actually changes.
 - 1 note: timestamp verification (environmental, not a code issue)
 - `.Rbuildignore` exists and covers non-standard top-level files and hidden dirs
 
-## Open Candidates (as of Cycle 13)
+## Open Candidates (as of Cycle 15)
 
 1. No `renv.lock` — reproducibility gap for contributors
 2. `DESCRIPTION` Version `0.1.0` — consider bumping to `0.2.0`
 3. `fix_questions.R` uses `here`, `readr`, `dplyr` as dev-only deps without formal package declaration
 4. Consider `pkgdown` site for rendered documentation
-5. `check_answer()` examples still imply expression-string matching for complex outputs (e.g., `c(TRUE, FALSE)`), but comparator does not parse expected-output expressions
+5. `R/check_answer.R` has `@examples` roxygen lines detached below the function, so `man/check_answer.Rd` still has no examples section
