@@ -35,8 +35,8 @@ Stable confirmed facts. Update only when something here actually changes.
 
 - **Framework:** testthat edition 3
 - **Entry point:** `tests/testthat.R` → `test_check("biostatAnki")`
-- **Test file:** `tests/testthat/test-questions.R` — one test: all 60 questions valid
-- **Legacy:** `test/` directory also exists with `run_tests.R` (standalone) and duplicate test file — not picked up by devtools
+- **Test file:** `tests/testthat/test-questions.R` — 24 tests covering all exported functions
+- **`test/` directory removed** (was non-standard duplicate)
 
 ## CI
 
@@ -45,13 +45,13 @@ Stable confirmed facts. Update only when something here actually changes.
 
 ## Known Non-Blocking Issues (NOTEs in R CMD check)
 
-- Hidden dirs flagged: `.github`, `.vscode`, `..Rproj`
-- Non-standard top-level files: `AUTONOMOUS_REVIEW_STATE.md`, `CLAUDE.md`, `fix_questions.R`, PowerShell scripts, `claude_cycle_prompt.txt` — no `.Rbuildignore` yet
+- 1 note: timestamp verification (environmental, not a code issue)
+- `.Rbuildignore` exists and covers non-standard top-level files and hidden dirs
 
-## Open Candidates (as of Cycle 4)
+## Open Candidates (as of Cycle 7)
 
-1. WARNING: Non-ASCII emoji in `R/run_app.R` and `R/validate_questions.R` — replace with `\uXXXX`
-2. WARNING: `validate_questions.Rd` missing `@param` for `questions_df` and `tolerance`
-3. NOTE: Add `.Rbuildignore` for non-standard top-level files and hidden dirs
-4. `test/` directory redundant — safe to remove
-5. No `renv.lock` — reproducibility gap
+1. No `renv.lock` — reproducibility gap for contributors
+2. `validate_questions()` internal `compare()` duplicates logic from `check_answer()` — refactor opportunity
+3. `DESCRIPTION` Version `0.1.0` — consider bumping to `0.2.0`
+4. No `run_app()` smoke test
+5. Consider `pkgdown` site for rendered documentation
