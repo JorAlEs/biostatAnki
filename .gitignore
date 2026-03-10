@@ -3,3 +3,18 @@
 .RData
 .Ruserdata
 autonomous_runtime.log
+
+# AI assistant / autonomous tooling artifacts
+CLAUDE.md
+claude_cycle_prompt.txt
+codex_cycle_prompt.txt
+AUTONOMOUS_REVIEW_STATE.md
+REPO_FACTS.md
+run_biostatanki_autonomous_loop*.ps1
+run_biostatanki_codex_loop*.ps1
+autonomous_runtime_codex.log
+
+# Common local assistant metadata
+.claude/
+.codex/
+.aider*
