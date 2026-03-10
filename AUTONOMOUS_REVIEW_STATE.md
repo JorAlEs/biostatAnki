@@ -128,6 +128,31 @@
 
 ---
 
+### Cycle 7 — 2026-03-10
+
+**Timestamp:** 2026-03-10
+
+**Chosen issues (batch):**
+1. README.md had formatting inconsistencies: bare `#` R-comment lines outside code fences rendered as unwanted H1 headers; Installation section split into two separate fenced blocks; emoji in headers; no proper section hierarchy.
+2. `fix_questions.R` used `here`, `readr`, `dplyr` with no hint for contributors that they must install these dev-only packages first.
+
+**Files changed:**
+- `README.md` — full rewrite: merged installation into one fenced block, converted bare `# Comment` lines to prose/proper `##` headers, removed emoji from headers, fixed `check_answer()` example (second arg must be a string), cleaned up Shiny and License sections.
+- `fix_questions.R` — added `Prerequisites` comment block listing `install.packages(c("here", "readr", "dplyr"))`.
+
+**Validation result:** PASSED — `devtools::check()` → 0 errors | 0 warnings | 1 note (harmless timestamp) ✅
+
+**Commit hash:** (pending)
+
+**Top next candidates:**
+1. No `renv.lock` — reproducibility gap for contributors.
+2. `tests/testthat/test-questions.R` — no coverage for `run_app()` (integration test or at least a smoke test).
+3. `validate_questions()` `compare()` inner function duplicates logic from `check_answer()` — could unify into a shared helper.
+4. Consider `pkgdown` site for rendered documentation.
+5. `DESCRIPTION` Version is `0.1.0` — bump to `0.2.0` to reflect the significant improvements made since initial release.
+
+---
+
 ### Cycle 6 — 2026-03-10
 
 **Timestamp:** 2026-03-10

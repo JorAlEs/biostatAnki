@@ -1,5 +1,8 @@
 # fix_questions.R  ---------------------------------------------------
 # Regenerates expected_output in inst/extdata/questions.csv
+#
+# Prerequisites (development-only; not part of the package):
+#   install.packages(c("here", "readr", "dplyr"))
 # --------------------------------------------------------------
 
 library(here)      # safe relative paths
