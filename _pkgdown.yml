@@ -1,0 +1,17 @@
+url: https://github.com/jalcantara-espinosa/biostatAnki
+template:
+  bootstrap: 5
+
+home:
+  title: Interactive BioStatistics Quiz via Shiny
+  description: A Shiny application presenting 60 biostatistics questions in an Anki-like format
+
+reference:
+  - title: "Main Functions"
+    desc: "Core exported functions"
+    contents:
+      - run_app
+      - check_answer
+      - get_question
+      - load_questions
+      - validate_questions

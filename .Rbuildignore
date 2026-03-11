@@ -16,3 +16,6 @@
 ^run_biostatanki_autonomous_loop\.ps1$
 ^run_biostatanki_autonomous_loop_safe\.ps1$
 ^test$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

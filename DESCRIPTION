@@ -20,6 +20,7 @@ Suggests:
     dplyr,
     here,
     knitr,
+    pkgdown,
     readr,
     rmarkdown,
     testthat (>= 3.0.0)

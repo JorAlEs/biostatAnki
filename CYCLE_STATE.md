@@ -22,14 +22,15 @@ _Overwritten each cycle. Full history → CYCLE_LOG.md (AI never reads that file
 - C16: roxygen blocks moved to correct functions (check_answer, run_app); NAMESPACE now exports exactly 5 public fns; orphaned @examples removed
 - C17: fix_questions.R dev dependencies added to Suggests (dplyr, here, readr); Version bumped 0.1.0→0.2.0; renv.lock generated
 - C18: Added @examples to get_question() and load_questions(); devtools installed to renv; roxygen documentation regenerated
+- C19: pkgdown initialized; _pkgdown.yml configured with home, reference sections; pkgdown added to Suggests (Note: Pandoc required for full site build)
 
 ## Top Candidates
 
-1. pkgdown site for rendered documentation
+1. GitHub Actions workflow for pkgdown deployment (docs/ folder)
 2. Consider additional package dependencies validation
-3. README enhancements (examples, installation from GitHub)
+3. README enhancements (installation, examples, running the app)
 4. Performance profiling and optimization
 
 ## Last Cycle
 
-Cycle 18 — 2026-03-11 — documentation examples — commit TBD — PASS 52
+Cycle 19 — 2026-03-11 — pkgdown setup — commit TBD — PASS 52
