@@ -24,14 +24,15 @@ _Overwritten each cycle. Full history → CYCLE_LOG.md (AI never reads that file
 - C18: Added @examples to get_question() and load_questions(); devtools installed to renv; roxygen documentation regenerated
 - C19: pkgdown initialized; _pkgdown.yml configured with home, reference sections; pkgdown added to Suggests (Note: Pandoc required for full site build)
 - C20: GitHub Actions workflow for pkgdown deployment created; deploys docs/ to gh-pages on push to main/master
+- C21: README enhanced with documentation link, version info, dev setup section, renv info, test/check commands
 
 ## Top Candidates
 
-1. README enhancements (installation, examples, running the app)
-2. Consider GitHub Pages branch configuration (must set gh-pages as source)
-3. Additional package dependencies validation
+1. Consider GitHub Pages branch configuration (must set gh-pages as source)
+2. Package signing or verification metadata (requires GitHub setup)
+3. Contributing guide or developer documentation
 4. Performance profiling and optimization
 
 ## Last Cycle
 
-Cycle 20 — 2026-03-11 — pkgdown GitHub Actions — commit TBD — PASS 52
+Cycle 21 — 2026-03-11 — README enhancements — commit TBD — PASS 52

@@ -18,14 +18,24 @@ For every card you write a short R expression, run it, and immediately see both 
 
 ---
 
+## Documentation
+
+Full API documentation is available at [biostatanki.github.io](https://github.com/jalcantara-espinosa/biostatAnki/wiki) (requires Pandoc for local builds).
+
 ## Installation
 
+**Stable release** (v0.2.0):
 ```r
 # from a local clone
-devtools::install_local("path/to/BioStatAnki")
+devtools::install_local("path/to/biostatAnki")
 
 # or directly from GitHub
-remotes::install_github("JorAlEs/BioStatAnki")
+remotes::install_github("jalcantara-espinosa/biostatAnki")
+```
+
+**Development version**:
+```r
+remotes::install_github("jalcantara-espinosa/biostatAnki", ref = "maintenance")
 ```
 
 ## Quick start
@@ -57,12 +67,38 @@ check_answer("1:10", "vector")             # TRUE (keyword)
 validate_questions()                       # All questions passed
 ```
 
-## Development utilities
+## Development
+
+### Setup
+
+```r
+# Use renv for reproducible development environment
+renv::restore()  # Install development dependencies
+
+# Run tests
+devtools::test()
+
+# Check package
+devtools::check()
+
+# Build documentation
+devtools::document()  # Generate .Rd files from roxygen comments
+pkgdown::build_site()  # Build full documentation site (requires Pandoc)
+```
+
+### Utilities
 
 | Script / tool                      | Purpose                                                                                                                       |
 | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | **`fix_questions.R`**              | Evaluates every `code`, writes full-precision numeric answers, tags object outputs (`vector`, `matrix`) and backs up the CSV. |
 | **Git pre-commit hook** (optional) | Runs `validate_questions()` and blocks commits that break the question set.                                                   |
+
+### Reproducible environment
+
+The `renv.lock` file captures all package versions. Contributors should restore the environment with:
+```r
+renv::restore()
+```
 
 ## Shiny app
 
