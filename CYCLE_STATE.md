@@ -21,15 +21,15 @@ _Overwritten each cycle. Full history → CYCLE_LOG.md (AI never reads that file
 - C15: .safe_eval_expected_output() — expression-string comparator fallback (c, list, matrix, :)
 - C16: roxygen blocks moved to correct functions (check_answer, run_app); NAMESPACE now exports exactly 5 public fns; orphaned @examples removed
 - C17: fix_questions.R dev dependencies added to Suggests (dplyr, here, readr); Version bumped 0.1.0→0.2.0; renv.lock generated
+- C18: Added @examples to get_question() and load_questions(); devtools installed to renv; roxygen documentation regenerated
 
 ## Top Candidates
 
-1. No renv.lock — reproducibility gap for contributors
-2. Bump DESCRIPTION Version to 0.2.0
-3. fix_questions.R uses here/readr/dplyr without declaration
-4. pkgdown site for rendered documentation
-5. @return / @examples missing from get_question.Rd and load_questions.Rd
+1. pkgdown site for rendered documentation
+2. Consider additional package dependencies validation
+3. README enhancements (examples, installation from GitHub)
+4. Performance profiling and optimization
 
 ## Last Cycle
 
-Cycle 16 — 2026-03-11 — roxygen/NAMESPACE fix — commit 8103d57 — PASS 52
+Cycle 18 — 2026-03-11 — documentation examples — commit TBD — PASS 52

@@ -24,3 +24,9 @@ columns:
 * `expected_output` -- the numeric answer expected when the code
   is executed.
 }
+\examples{
+\dontrun{
+  questions <- load_questions()
+  head(questions)
+}
+}

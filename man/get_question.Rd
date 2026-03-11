@@ -18,3 +18,9 @@ question text, the canonical code that solves it, and the
 expected output.  It is primarily used internally by the
 Shiny application but may also be useful for programmatic access.
 }
+\examples{
+\dontrun{
+  q <- get_question(1)
+  cat(q$question)
+}
+}

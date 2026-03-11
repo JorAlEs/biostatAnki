@@ -14,6 +14,11 @@
 ##'   is executed.
 ##'
 ##' @return A `data.frame` containing all quiz questions.
+##' @examples
+##' \dontrun{
+##'   questions <- load_questions()
+##'   head(questions)
+##' }
 ##' @export
 load_questions <- function() {
   csv_path <- system.file("extdata", "questions.csv", package = "biostatAnki")
