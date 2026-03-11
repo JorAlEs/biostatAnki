@@ -1,5 +1,21 @@
 # biostatAnki News
 
+## 0.2.0 (2026-03-11)
+
+### New features
+- Added `vignettes/getting-started.Rmd`: introductory vignette covering
+  `load_questions()`, `get_question()`, `check_answer()`, `validate_questions()`,
+  and `run_app()` with runnable examples.
+
+### Improvements
+- `fix_questions.R` dev-script prerequisites documented; `dplyr`, `here`, and
+  `readr` added to `Suggests`.
+- `get_question()` and `load_questions()` gain `@examples` roxygen blocks.
+- pkgdown site initialized with `_pkgdown.yml`; GitHub Actions workflow added
+  for automatic docs deployment to `gh-pages` on push to `main`.
+- README enhanced with documentation link, version badge, renv setup
+  instructions, and test/check command reference.
+
 ## 0.1.0 (2026-03-10)
 
 ### Bug fixes

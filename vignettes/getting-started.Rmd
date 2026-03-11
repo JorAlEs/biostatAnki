@@ -1,0 +1,104 @@
+---
+title: "Getting Started with biostatAnki"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting Started with biostatAnki}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(biostatAnki)
+```
+
+## Overview
+
+**biostatAnki** is an Anki-style quiz app for biostatistics in R.
+The package ships 60 questions covering descriptive statistics, correlation,
+and simple linear regression.
+Users write R code to answer each question; the app evaluates the result
+against the expected output.
+
+## Installation
+
+```r
+# From GitHub (development version)
+# install.packages("pak")
+pak::pak("jorge-alcantara/biostatAnki")
+```
+
+## Browsing the question bank
+
+`load_questions()` returns all 60 questions as a data frame.
+
+```{r load}
+qs <- load_questions()
+nrow(qs)
+names(qs)
+```
+
+Each row has three columns:
+
+| Column | Description |
+|--------|-------------|
+| `id` | Integer question ID (1–60) |
+| `question` | The biostatistics prompt |
+| `code` | Canonical solution code |
+| `expected_output` | Expected result as a character string |
+
+## Fetching a single question
+
+`get_question(id)` returns one question as a list.
+
+```{r get}
+q <- get_question(1)
+cat(q$question)
+```
+
+## Checking an answer
+
+`check_answer(user_code, expected_output)` evaluates `user_code` in a clean
+environment and returns `TRUE` when the result matches `expected_output`.
+
+```{r check-correct}
+# Correct answer
+check_answer(q$code, q$expected_output)
+```
+
+```{r check-wrong}
+# Wrong answer
+check_answer("mean(1:10)", q$expected_output)
+```
+
+Numeric comparisons use a tolerance of `1e-6`, so floating-point results work
+as expected:
+
+```{r tolerance}
+check_answer("0.1 + 0.2", "0.3")  # TRUE despite floating-point representation
+```
+
+## Validating the full question bank
+
+`validate_questions()` runs every canonical solution through `check_answer()`
+and reports how many pass.
+
+```{r validate}
+result <- validate_questions()
+cat(sprintf("%d / %d questions pass\n", result$passed, result$total))
+```
+
+## Launching the interactive app
+
+The Shiny interface lets you navigate questions, type code, and get instant
+feedback:
+
+```r
+biostatAnki::run_app()
+```
+
+The app opens in your default browser. Use the **Previous / Next** buttons to
+navigate and the **Check** button to evaluate your answer.

@@ -25,14 +25,15 @@ _Overwritten each cycle. Full history → CYCLE_LOG.md (AI never reads that file
 - C19: pkgdown initialized; _pkgdown.yml configured with home, reference sections; pkgdown added to Suggests (Note: Pandoc required for full site build)
 - C20: GitHub Actions workflow for pkgdown deployment created; deploys docs/ to gh-pages on push to main/master
 - C21: README enhanced with documentation link, version info, dev setup section, renv info, test/check commands
+- C22: vignettes/getting-started.Rmd added; NEWS.md updated with v0.2.0 changelog
 
 ## Top Candidates
 
-1. Consider GitHub Pages branch configuration (must set gh-pages as source)
-2. Package signing or verification metadata (requires GitHub setup)
-3. Contributing guide or developer documentation
+1. CONTRIBUTING.md guide for external contributors
+2. Consider GitHub Pages branch configuration (must set gh-pages as source)
+3. Package signing or verification metadata (requires GitHub setup)
 4. Performance profiling and optimization
 
 ## Last Cycle
 
-Cycle 21 — 2026-03-11 — README enhancements — commit TBD — PASS 52
+Cycle 22 — 2026-03-11 — Introductory vignette + NEWS.md v0.2.0 — commit TBD — PASS 52
