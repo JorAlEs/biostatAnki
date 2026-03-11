@@ -72,3 +72,6 @@ id,question,code,expected_output
 71,"A diagnostic test produced 80 true negatives and 20 false positives (TN=80, FP=20). Compute the specificity.","TN <- 80; FP <- 20; TN/(TN+FP)",0.8
 72,"A screening test yields TP=75 true positives and FP=25 false positives. Compute the Positive Predictive Value (PPV).","TP <- 75; FP <- 25; TP/(TP+FP)",0.75
 73,"In a cohort study the risk in the exposed group is 0.25 and in the unexposed group is 0.10. Compute the Attributable Risk (risk difference).","risk_exposed <- 0.25; risk_unexposed <- 0.10; risk_exposed - risk_unexposed",0.15
+74,"A one-sample t-test is conducted with sample mean xbar = 5, hypothesised mean mu0 = 4, sample standard deviation s = 2, and sample size n = 16. Compute the t-statistic.","xbar <- 5; mu0 <- 4; s <- 2; n <- 16; (xbar - mu0) / (s / sqrt(n))",2
+75,"Compute the 95% confidence interval half-width (margin of error) for a mean when the sample standard deviation is s = 10, sample size n = 25, and the critical value is z = 1.96.","s <- 10; n <- 25; z <- 1.96; z * (s / sqrt(n))",3.92
+76,"In a two-proportion z-test, the pooled proportion is p_pool = 0.3, and both groups have n = 100. Compute the standard error of the difference in proportions.","p_pool <- 0.3; n <- 100; sqrt(2 * p_pool * (1 - p_pool) / n)",0.0648074069840786
