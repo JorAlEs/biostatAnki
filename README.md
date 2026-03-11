@@ -9,7 +9,7 @@ For every card you write a short R expression, run it, and immediately see both 
 
 | Category | Details |
 |----------|---------|
-| **Exercises** | `inst/extdata/questions.csv` ships with **78 questions**.<br>• 40 numeric tasks (mean, median, variance, SD).<br>• Correlation, linear-model slope, survival analysis, Mendelian randomization, Bayesian inference, epidemiological measures (RR, OR, NNT, sensitivity, specificity, PPV, attributable risk), logistic regression, and regularization (ridge penalty).<br>• Object tasks returning vectors or matrices—tagged with the keywords `vector` or `matrix`. |
+| **Exercises** | `inst/extdata/questions.csv` ships with **81 questions**.<br>• 40 numeric tasks (mean, median, variance, SD).<br>• Correlation, linear-model slope, survival analysis, Mendelian randomization, Bayesian inference, epidemiological measures (RR, OR, NNT, sensitivity, specificity, PPV, attributable risk), logistic regression, regularization (ridge penalty), causal inference (ATE, CATE), and missing data (MCAR complete cases).<br>• Object tasks returning vectors or matrices—tagged with the keywords `vector` or `matrix`. |
 | **Two-step workflow** | **Run code** executes the user expression in a safe environment and prints the result.<br>**Check answer** validates that result against the CSV, using numeric tolerance and keyword logic. |
 | **Separated panes** | Shiny UI shows *Result* (object) and *Feedback* (correct / incorrect) in separate boxes. |
 | **Random order** | Each session shuffles all cards once; no repeats until every card is seen. |
