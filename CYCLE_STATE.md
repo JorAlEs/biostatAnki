@@ -26,14 +26,15 @@ _Overwritten each cycle. Full history → CYCLE_LOG.md (AI never reads that file
 - C20: GitHub Actions workflow for pkgdown deployment created; deploys docs/ to gh-pages on push to main/master
 - C21: README enhanced with documentation link, version info, dev setup section, renv info, test/check commands
 - C22: vignettes/getting-started.Rmd added; NEWS.md updated with v0.2.0 changelog
+- C23: CONTRIBUTING.md added; .Rbuildignore updated; NEWS.md v0.2.1 entry added
 
 ## Top Candidates
 
-1. CONTRIBUTING.md guide for external contributors
-2. Consider GitHub Pages branch configuration (must set gh-pages as source)
-3. Package signing or verification metadata (requires GitHub setup)
-4. Performance profiling and optimization
+1. Consider GitHub Pages branch configuration (must set gh-pages as source)
+2. Package signing or verification metadata (requires GitHub setup)
+3. Performance profiling and optimization
+4. Code of Conduct file (CODE_OF_CONDUCT.md) — referenced in CONTRIBUTING.md
 
 ## Last Cycle
 
-Cycle 22 — 2026-03-11 — Introductory vignette + NEWS.md v0.2.0 — commit TBD — PASS 52
+Cycle 23 — 2026-03-11 — CONTRIBUTING.md contributor guide — commit TBD — PASS 52

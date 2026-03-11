@@ -16,6 +16,7 @@
 ^run_biostatanki_autonomous_loop\.ps1$
 ^run_biostatanki_autonomous_loop_safe\.ps1$
 ^test$
+^CONTRIBUTING\.md$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$

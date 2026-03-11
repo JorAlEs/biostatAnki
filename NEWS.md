@@ -1,5 +1,12 @@
 # biostatAnki News
 
+## 0.2.1 (2026-03-11)
+
+### Documentation
+- Added `CONTRIBUTING.md`: contributor guide covering dev setup with renv,
+  test commands, question authoring workflow, code-style rules, and PR
+  submission steps.
+
 ## 0.2.0 (2026-03-11)
 
 ### New features
