@@ -83,9 +83,9 @@ test_that("load_questions returns a data.frame with required columns", {
   expect_true(all(c("id", "question", "code", "expected_output") %in% names(qdf)))
 })
 
-test_that("load_questions returns 60 rows", {
+test_that("load_questions returns 66 rows", {
   qdf <- load_questions()
-  expect_equal(nrow(qdf), 60L)
+  expect_equal(nrow(qdf), 66L)
 })
 
 # --- check_answer -------------------------------------------------------------
