@@ -1,7 +1,7 @@
 Package: biostatAnki
 Type: Package
 Title: Interactive BioStatistics Quiz via Shiny
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(person("Jorge", "Alcantara", email = "jorge.alcantara.espinosa@hotmail.com", role = c("aut", "cre")))
 Maintainer: Jorge Alcantara <jorge.alcantara.espinosa@hotmail.com>
 Description: Provides a Shiny application presenting 60 biostatistics questions
@@ -16,8 +16,11 @@ Imports:
     shiny
 License: MIT + file LICENSE
 Encoding: UTF-8
-Suggests: 
+Suggests:
+    dplyr,
+    here,
     knitr,
+    readr,
     rmarkdown,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
