@@ -4,12 +4,13 @@ Title: Interactive BioStatistics Quiz via Shiny
 Version: 0.2.0
 Authors@R: c(person("Jorge", "Alcantara", email = "jorge.alcantara.espinosa@hotmail.com", role = c("aut", "cre")))
 Maintainer: Jorge Alcantara <jorge.alcantara.espinosa@hotmail.com>
-Description: Provides a Shiny application presenting 60 biostatistics questions
+Description: Provides a Shiny application presenting biostatistics questions
     in an Anki-like format. Users write R code to answer each question,
     and the app evaluates the result against the expected output. The
-    questions cover descriptive statistics, correlation, and simple linear
-    regression. Shiny's reactive programming model automatically updates
-    feedback when users submit their answers.
+    questions cover descriptive statistics, correlation, simple linear
+    regression, survival analysis, causal inference, Bayesian inference,
+    and epidemiological measures. Shiny's reactive programming model
+    automatically updates feedback when users submit their answers.
 Depends: R (>= 3.6.0)
 Imports:
     httpuv,

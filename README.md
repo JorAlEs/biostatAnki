@@ -9,7 +9,7 @@ For every card you write a short R expression, run it, and immediately see both 
 
 | Category | Details |
 |----------|---------|
-| **Exercises** | `inst/extdata/questions.csv` ships with **60 questions**.<br>• 40 numeric tasks (mean, median, variance, SD, correlation, linear-model slope).<br>• 20 object tasks returning vectors or matrices—tagged with the keywords `vector` or `matrix`. |
+| **Exercises** | `inst/extdata/questions.csv` ships with **73 questions**.<br>• 40 numeric tasks (mean, median, variance, SD).<br>• Correlation, linear-model slope, survival analysis, Mendelian randomization, Bayesian inference, and epidemiological measures (RR, OR, NNT, sensitivity, specificity, PPV, attributable risk).<br>• Object tasks returning vectors or matrices—tagged with the keywords `vector` or `matrix`. |
 | **Two-step workflow** | **Run code** executes the user expression in a safe environment and prints the result.<br>**Check answer** validates that result against the CSV, using numeric tolerance and keyword logic. |
 | **Separated panes** | Shiny UI shows *Result* (object) and *Feedback* (correct / incorrect) in separate boxes. |
 | **Random order** | Each session shuffles all cards once; no repeats until every card is seen. |
@@ -92,6 +92,22 @@ pkgdown::build_site()  # Build full documentation site (requires Pandoc)
 | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
 | **`fix_questions.R`**              | Evaluates every `code`, writes full-precision numeric answers, tags object outputs (`vector`, `matrix`) and backs up the CSV. |
 | **Git pre-commit hook** (optional) | Runs `validate_questions()` and blocks commits that break the question set.                                                   |
+
+### Daily LinkedIn draft automation
+
+Generate a post draft from yesterday's GitHub changes:
+
+```powershell
+./generate_linkedin_post.ps1 -RepoPath . -OutputDir social/linkedin
+```
+
+Run a local daily loop (default 09:00 local time):
+
+```powershell
+./run_linkedin_daily_loop.ps1 -RepoPath . -OutputDir social/linkedin -RunImmediately
+```
+
+Or use GitHub Actions: `.github/workflows/linkedin-daily-draft.yaml` runs every day at `07:15 UTC` and commits updated drafts under `social/linkedin/`.
 
 ### Reproducible environment
 

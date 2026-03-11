@@ -1,0 +1,14 @@
+﻿Daily GitHub update for biostatAnki (2026-03-10):
+
+Yesterday we shipped:
+- Support expression-style expected outputs in comparator.
+- Handle missing expected outputs in comparator.
+- Align answer evaluation env and prevent global leakage.
+- Share answer comparator and honor validate tolerance.
+- Make run_app return value invisibly.
+
+Main areas touched: R (3), (repo root) (1), tests (1).
+
+I will share another concise update tomorrow.
+Repository: https://github.com/JorAlEs/biostatAnki
+#opensource #github #rstats #shiny

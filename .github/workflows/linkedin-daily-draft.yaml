@@ -1,0 +1,38 @@
+name: LinkedIn daily draft
+
+on:
+  schedule:
+    - cron: "15 07 * * *"
+  workflow_dispatch:
+
+jobs:
+  generate-linkedin-draft:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate yesterday draft
+        shell: pwsh
+        env:
+          TZ: Europe/Madrid
+        run: |
+          ./generate_linkedin_post.ps1 -RepoPath . -OutputDir social/linkedin
+
+      - name: Commit draft if changed
+        shell: bash
+        run: |
+          if git diff --quiet -- social/linkedin; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add social/linkedin
+          git commit -m "chore: add LinkedIn draft for $(date -u +%Y-%m-%d)"
+          git push
