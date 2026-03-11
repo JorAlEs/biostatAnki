@@ -1,12 +1,3 @@
-#' Evaluate a User's Answer (Simple Equality Check)
-#'
-#' This function evaluates R code in a clean environment and compares the result
-#' to the expected_output as defined in the quiz dataset.
-#'
-#' @param user_code A string with the R code input from the user.
-#' @param expected_output Expected result as character (from the quiz CSV).
-#' @return TRUE if the result matches the expected output; FALSE otherwise.
-#' @export
 .quiz_eval_parent <- function() {
   if ("package:stats" %in% search()) {
     return(as.environment("package:stats"))
@@ -14,6 +5,22 @@
   asNamespace("stats")
 }
 
+#' Evaluate a User's Answer
+#'
+#' Evaluates R code in a clean environment and compares the result to the
+#' expected output as defined in the quiz dataset.
+#'
+#' @param user_code A string containing the R code submitted by the user.
+#' @param expected_output Expected result as a character string (from the quiz
+#'   CSV), or an R object for direct comparison.
+#' @return \code{TRUE} if the result matches the expected output; \code{FALSE}
+#'   otherwise.
+#' @examples
+#' check_answer("mean(c(1, 2, 3))", "2")       # TRUE
+#' check_answer("mean(c(1, 2, 3))", "3")       # FALSE
+#' check_answer("c(1, 2, 3)", "c(1, 2, 3)")   # TRUE
+#' check_answer("c(1, 2, 3)", "c(1, 2, 4)")   # FALSE
+#' @export
 check_answer <- function(user_code, expected_output) {
   env <- new.env(parent = .quiz_eval_parent())
   result <- try(eval(parse(text = user_code), envir = env), silent = TRUE)
@@ -84,11 +91,3 @@ check_answer <- function(user_code, expected_output) {
   # Fallback to identical match
   identical(result, expected_output)
 }
-#' @examples
-#' # Example usage:
-#' check_answer("mean(c(1,2,3))", "2")
-#' check_answer("mean(c(1,2,3))", "3")
-#' check_answer("c('apple', 'banana')", "c('apple', 'banana')")
-#' check_answer("c(TRUE, FALSE)", "c(TRUE, FALSE)")
-#' check_answer("c(1, 2, 3)", "c(1, 2, 3)")
-#' check_answer("c(1, 2, 3)", "c(1, 2, 4)")  # Should return FALSE  

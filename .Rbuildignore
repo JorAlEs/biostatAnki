@@ -3,6 +3,8 @@
 ^\.github$
 ^\.vscode$
 ^AUTONOMOUS_REVIEW_STATE\.md$
+^CYCLE_STATE\.md$
+^CYCLE_LOG\.md$
 ^CLAUDE\.md$
 ^REPO_FACTS\.md$
 ^README\.md$

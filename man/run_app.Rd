@@ -14,24 +14,24 @@ run_app(
 }
 \arguments{
 \item{host}{Character. Network interface to bind.
-Default "0.0.0.0" so it works inside Docker or on-prem servers.}
+Default \code{"0.0.0.0"} so it works inside Docker or on-prem servers.}
 
 \item{port}{Integer. Port to listen on.
-Default uses the `biostatAnki_PORT` env-var when set, else
-a random available port.}
+Defaults to the \code{biostatAnki_PORT} env-var when set, else a random
+available port.}
 
 \item{launch.browser}{Logical. Force opening the system browser.
-Defaults to TRUE in interactive sessions.}
+Defaults to \code{TRUE} in interactive sessions.}
 
-\item{quiet}{Logical. If TRUE, suppresses the startup banner.}
+\item{quiet}{Logical. If \code{TRUE}, suppresses the startup banner.}
 
-\item{...}{Further arguments passed to `shiny::runApp()`.}
+\item{...}{Further arguments passed to \code{shiny::runApp()}.}
 }
 \value{
-Invisibly returns the value from `shiny::runApp()`.
+Invisibly returns the value from \code{shiny::runApp()}.
 }
 \description{
-This helper starts the Shiny application shipped with **biostatAnki**.
+This helper starts the Shiny application shipped with \pkg{biostatAnki}.
 It performs extra validation (dependencies, directory, interactive
 session), chooses smart defaults for host/port, and always opens the
 browser unless run in a non-interactive session (e.g. Rscript).

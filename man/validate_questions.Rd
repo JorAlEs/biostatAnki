@@ -18,8 +18,8 @@ validate_questions(
 Default \code{1e-6}.}
 }
 \description{
-Evaluates every code snippet in \code{questions_df}
-and checks it against \code{expected_output} via the same
+Evaluates every code snippet in `questions_df`
+and checks it against `expected_output` via the same
 comparison logic used in the app.
 Returns an invisible data.frame summarising failures.
 }
