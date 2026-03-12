@@ -88,3 +88,8 @@ id,question,code,expected_output
 87,"In a 2x2 table, the observed counts are O = c(20, 30, 30, 20) and the expected counts are E = c(25, 25, 25, 25). Compute the chi-square test statistic.","O <- c(20, 30, 30, 20); E <- c(25, 25, 25, 25); sum((O - E)^2 / E)",4
 88,"Compute the sample variance of v <- c(3, 5, 7, 9, 11).","v <- c(3, 5, 7, 9, 11); var(v)",10
 89,"Using the binomial distribution, compute P(X = 3) when n = 5 and p = 0.5.","dbinom(3, size = 5, prob = 0.5)",0.3125
+90,"Compute the Pearson correlation between x <- c(1, 2, 3, 4, 5) and y <- c(2, 4, 6, 8, 10).","x <- c(1, 2, 3, 4, 5); y <- c(2, 4, 6, 8, 10); cor(x, y)",1
+91,"Compute the standard error of the mean for v <- c(10, 12, 14, 16, 18).","v <- c(10, 12, 14, 16, 18); sd(v) / sqrt(length(v))",1.41421356237310
+92,"In a cohort study, 40 out of 100 exposed individuals develop disease versus 10 out of 100 unexposed. Compute the relative risk (exposed vs. unexposed).","a <- 40; b <- 60; c_val <- 10; d <- 90; (a / (a + b)) / (c_val / (c_val + d))",4
+93,"The event rate in the control group is p_ctrl <- 0.20 and in the treatment group is p_treat <- 0.12. Compute the number needed to treat (NNT).","p_ctrl <- 0.20; p_treat <- 0.12; 1 / (p_ctrl - p_treat)",12.5
+94,"Compute the one-sample t statistic with sample mean xbar = 105, hypothesized mean mu0 = 100, standard deviation s = 10, and sample size n = 25.","xbar <- 105; mu0 <- 100; s <- 10; n <- 25; (xbar - mu0) / (s / sqrt(n))",2.5
