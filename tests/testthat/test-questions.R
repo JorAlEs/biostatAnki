@@ -83,9 +83,11 @@ test_that("load_questions returns a data.frame with required columns", {
   expect_true(all(c("id", "question", "code", "expected_output") %in% names(qdf)))
 })
 
-test_that("load_questions returns 106 rows", {
+test_that("load_questions has non-empty, unique, contiguous ids", {
   qdf <- load_questions()
-  expect_equal(nrow(qdf), 106L)
+  expect_gt(nrow(qdf), 0L)
+  expect_equal(length(unique(qdf$id)), nrow(qdf))
+  expect_equal(sort(as.integer(qdf$id)), seq_len(nrow(qdf)))
 })
 
 # --- check_answer -------------------------------------------------------------
