@@ -83,9 +83,9 @@ test_that("load_questions returns a data.frame with required columns", {
   expect_true(all(c("id", "question", "code", "expected_output") %in% names(qdf)))
 })
 
-test_that("load_questions returns 81 rows", {
+test_that("load_questions returns 84 rows", {
   qdf <- load_questions()
-  expect_equal(nrow(qdf), 81L)
+  expect_equal(nrow(qdf), 84L)
 })
 
 # --- check_answer -------------------------------------------------------------
@@ -168,6 +168,18 @@ test_that("check_answer supports expression-style expected outputs", {
 
 test_that("check_answer returns FALSE for missing expected output", {
   expect_false(check_answer("NA", NA_character_))
+})
+
+test_that("check_answer handles Inf and -Inf correctly", {
+  expect_true(check_answer("1/0", "Inf"))
+  expect_true(check_answer("-1/0", "-Inf"))
+  expect_false(check_answer("1/0", "0"))
+  expect_false(check_answer("1/0", "-Inf"))
+})
+
+test_that("check_answer handles NaN correctly", {
+  expect_true(check_answer("0/0", "NaN"))
+  expect_false(check_answer("0/0", "0"))
 })
 
 test_that("validate_questions marks missing expected output as invalid", {
