@@ -9,8 +9,11 @@ For every card you write a short R expression, run it, and immediately see both 
 
 | Category | Details |
 |----------|---------|
-| **Exercises** | `inst/extdata/questions.csv` ships with **84 questions**.<br>• 40 numeric tasks (mean, median, variance, SD).<br>• Correlation, linear-model slope, survival analysis, Mendelian randomization, Bayesian inference, epidemiological measures (RR, OR, NNT, sensitivity, specificity, PPV, attributable risk), logistic regression, regularization (ridge penalty), causal inference (ATE, CATE), missing data (MCAR complete cases), two-sample t-test (pooled variance, t-statistic), and competing risks (cumulative incidence).<br>• Object tasks returning vectors or matrices—tagged with the keywords `vector` or `matrix`. |
+| **Exercises** | `inst/extdata/questions.csv` ships with **102 questions**.<br>• 40 numeric tasks (mean, median, variance, SD).<br>• Correlation, linear-model slope, survival analysis, Mendelian randomization, Bayesian inference (credible intervals), epidemiological measures (RR, OR, NNT, sensitivity, specificity, PPV, attributable risk), logistic regression, regularization (ridge penalty), causal inference (ATE, CATE), missing data (MCAR complete cases), two-sample t-test (pooled variance, t-statistic), competing risks (cumulative incidence), prediction model performance (C-statistic/AUC), and mixed models (ICC).<br>• Object tasks returning vectors or matrices—tagged with the keywords `vector` or `matrix`. |
 | **Two-step workflow** | **Run code** executes the user expression in a safe environment and prints the result.<br>**Check answer** validates that result against the CSV, using numeric tolerance and keyword logic. |
+| **Two-sheet app layout** | **Testing Area** for hands-on quiz execution and validation.<br>**Learning Area** with concise notes tied to tested concepts. |
+| **Sandbox sheet** | Build mock datasets, run selected analyses, execute custom code, and get script snippets plus required libraries for reproducible workflows. |
+| **Knowledge repository** | `inst/extdata/knowledge_repository.csv` stores explainers for R, Biostatistics, and Biostatistical Methods, linked to quiz coverage. |
 | **Separated panes** | Shiny UI shows *Result* (object) and *Feedback* (correct / incorrect) in separate boxes. |
 | **Random order** | Each session shuffles all cards once; no repeats until every card is seen. |
 | **Robust validator** | `validate_questions()` executes every row and reports pass/fail. Runs locally and in CI. |

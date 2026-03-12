@@ -1,0 +1,13 @@
+section,topic,summary,test_area_reference
+R,Core data structures,"Vectors, matrices, and data frames are the base structures for coding answers in the quiz. Know how to create them, subset values, and check types.",Questions on vectors and matrices plus all coding exercises
+R,Functions and reproducibility,"Write short, explicit R expressions and avoid hidden state. Reproducible code gives the same output when rerun in a clean environment.",All questions executed from user code input
+R,Missing values and numeric precision,"Handle NA, NaN, Inf, and floating-point precision with care when interpreting outputs and validating answers.",NaN/Inf edge cases in tests and numeric tolerance checks
+Biostatistics,Descriptive statistics,"Mean, median, variance, and standard deviation summarize central tendency and spread for continuous data.",Core descriptive statistics questions
+Biostatistics,Epidemiologic measures,"Relative risk, odds ratio, NNT, sensitivity, specificity, PPV, and attributable risk support clinical decision making and interpretation.",Questions 67-73
+Biostatistics,Inference basics,"Two-sample pooled variance and t-statistics are fundamental for comparing group means and interpreting uncertainty.",Questions 82-83
+Biostatistical Methods,Regression modeling,"Linear and logistic regression connect predictors to outcomes; ridge and lasso regularization manage overfitting and variable shrinkage.",Logistic and ridge questions around IDs 77-78
+Biostatistical Methods,Survival and competing risks,"When competing events exist, cumulative incidence functions and Fine-Gray concepts are preferred over naive Kaplan-Meier interpretation.",Question 84 and survival-analysis questions
+Biostatistical Methods,Causal inference and missing data,"ATE and CATE estimate treatment effects; MCAR, MAR, and MNAR assumptions guide handling incomplete data.",Questions 79-81
+Biostatistical Methods,Prediction model performance,"C-statistic (AUC) measures discrimination: probability a case ranks higher than a control. Calibration measures how well predicted probabilities match observed outcomes. Both are needed; high AUC does not guarantee good calibration.",Question 101
+Biostatistical Methods,Bayesian inference,"Credible intervals contain the true parameter with the stated posterior probability. Computed via posterior quantiles (e.g., qnorm(0.975) for an N(0,1) posterior).",Question 100
+Biostatistical Methods,Mixed models and ICC,"Intraclass correlation coefficient (ICC) = between-group variance / total variance; quantifies clustering in random-intercept models. Values near 1 indicate most variability is between groups.",Question 102
