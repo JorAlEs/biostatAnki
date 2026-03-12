@@ -112,6 +112,22 @@ Run a local daily loop (default 09:00 local time):
 
 Or use GitHub Actions: `.github/workflows/linkedin-daily-draft.yaml` runs every day at `07:15 UTC` and commits updated drafts under `social/linkedin/`.
 
+### Autonomous maintenance entrypoints
+
+Two independent loop wrappers are available:
+
+- ChatGPT/Codex loop: `./autonomous_loop.ps1`
+- Claude loop (sidecar): `./autonomous_loop_claude.ps1`
+
+Shared logic:
+
+- Prompt template: `claude_cycle_prompt.txt`
+- Daily external fetch: `daily_external_fetch.js`
+- ChatGPT cycle runner: `run_cycle.js`
+- Claude cycle runner: `run_cycle_claude.js`
+
+Important: run only one autonomous loop at a time to avoid concurrent edits.
+
 ### Reproducible environment
 
 The `renv.lock` file captures all package versions. Contributors should restore the environment with:
