@@ -26,6 +26,46 @@ Next candidates:
 - Add questions on logistic regression (log-odds, probability from logit)
 - Add questions on t-test interpretation (p-value, confidence interval width)
 
+## 2026-03-12 (C29)
+Action: Added 4 questions (IDs 103-106) on Bonferroni correction (alpha/m),
+  Benjamini-Hochberg FDR critical value (k/m * q), propensity score matching ATT
+  (treated minus matched-control mean), and decision curve analysis net benefit
+  (TP/N - FP/N * pt/(1-pt)).
+Files:
+  - inst/extdata/questions.csv (rows 103-106 appended)
+  - tests/testthat/test-questions.R (row count 102 → 106)
+  - README.md (updated exercise count 102 → 106, expanded topic list)
+  - DESCRIPTION (expanded description with new topics)
+  - inst/extdata/knowledge_repository.csv (3 new entries added)
+Validation: pass (all 106 questions valid)
+Commit: 8e22ddd
+Next candidates:
+- Add questions on G-computation / marginal standardization
+- Add question on Kaplan-Meier log-rank test statistic
+- Add question on sample size calculation for two-proportion z-test
+- Add questions on calibration (Brier score, calibration slope)
+
+## 2026-03-12 (C28)
+Action: Added 3 questions (IDs 100-102) on Bayesian credible intervals (N(0,1)
+  posterior upper bound via qnorm), C-statistic/AUC (concordant pair proportion),
+  and intraclass correlation coefficient (ICC from mixed model variance components).
+Literature: Lancet Digital Health 2026 guidance on discrimination vs calibration
+  in clinical prediction models; ICC documentation update in `performance` R package
+  (Feb 2026); Bayesian vs frequentist CI misinterpretation discussion from community.
+Files:
+  - inst/extdata/questions.csv (rows 100-102 appended)
+  - tests/testthat/test-questions.R (row count 99 → 102)
+  - README.md (updated exercise count 84 → 102, expanded topic list)
+  - inst/extdata/knowledge_repository.csv (3 new entries added)
+Validation: pass (all 102 questions valid)
+Knowledge repo: updated
+Commit: 9504a69
+Next candidates:
+- Add questions on Bonferroni correction and FDR (multiple testing)
+- Add questions on decision curve analysis / Net Benefit
+- Add question on propensity score matching (ATT vs ATE)
+- Expand DESCRIPTION topics (ICC, AUC, Bayesian credible intervals)
+
 ## 2026-03-12 (C27)
 Action: Added 3 questions (IDs 82–84) on two-sample t-test (pooled variance,
   t-statistic) and competing risks (crude CIF from Fine-Gray model context).
