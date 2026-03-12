@@ -9,8 +9,11 @@ Description: Provides a Shiny application presenting biostatistics questions
     and the app evaluates the result against the expected output. The
     questions cover descriptive statistics, correlation, simple linear
     regression, survival analysis, causal inference, Bayesian inference,
-    and epidemiological measures. Shiny's reactive programming model
-    automatically updates feedback when users submit their answers.
+    epidemiological measures, multiple testing (Bonferroni, FDR),
+    propensity score matching, decision curve analysis, prediction model
+    performance (AUC/C-statistic), and mixed models (ICC). Shiny's
+    reactive programming model automatically updates feedback when users
+    submit their answers.
 Depends: R (>= 3.6.0)
 Imports:
     httpuv,
