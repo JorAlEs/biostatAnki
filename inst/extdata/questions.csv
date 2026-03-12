@@ -93,3 +93,8 @@ id,question,code,expected_output
 92,"In a cohort study, 40 out of 100 exposed individuals develop disease versus 10 out of 100 unexposed. Compute the relative risk (exposed vs. unexposed).","a <- 40; b <- 60; c_val <- 10; d <- 90; (a / (a + b)) / (c_val / (c_val + d))",4
 93,"The event rate in the control group is p_ctrl <- 0.20 and in the treatment group is p_treat <- 0.12. Compute the number needed to treat (NNT).","p_ctrl <- 0.20; p_treat <- 0.12; 1 / (p_ctrl - p_treat)",12.5
 94,"Compute the one-sample t statistic with sample mean xbar = 105, hypothesized mean mu0 = 100, standard deviation s = 10, and sample size n = 25.","xbar <- 105; mu0 <- 100; s <- 10; n <- 25; (xbar - mu0) / (s / sqrt(n))",2.5
+95,"In a case-control study, the 2x2 table shows: a (exposed cases) = 40, b (unexposed cases) = 60, c (exposed controls) = 10, d (unexposed controls) = 90. Compute the odds ratio.","a <- 40; b <- 60; c_val <- 10; d <- 90; (a * d) / (b * c_val)",6
+96,"A diagnostic test correctly identifies 80 true positives and misses 20 true cases (false negatives). Compute the sensitivity.","TP <- 80; FN <- 20; TP / (TP + FN)",0.8
+97,"A diagnostic test correctly identifies 90 true negatives and incorrectly flags 10 healthy subjects (false positives). Compute the specificity.","TN <- 90; FP <- 10; TN / (TN + FP)",0.9
+98,"A diagnostic test has TP = 80 true positives and FP = 10 false positives. Compute the positive predictive value (PPV).","TP <- 80; FP <- 10; TP / (TP + FP)",0.888888888888889
+99,"In a one-way ANOVA, the between-group sum of squares is SSB = 60 with k = 3 groups, and the within-group sum of squares is SSW = 90 with N = 33 total observations. Compute the F-statistic.","SSB <- 60; k <- 3; SSW <- 90; N <- 33; (SSB / (k - 1)) / (SSW / (N - k))",10
