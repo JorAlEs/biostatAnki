@@ -242,5 +242,5 @@ Literature: Prior cycles identified calibration slope as a coverage gap; the any
 Files: inst/extdata/questions.csv (Q111 appended); inst/extdata/knowledge_repository.csv (calibration slope definition added, Q111 referenced)
 Validation: pass (all 111 questions valid)
 Knowledge repo: updated
-Commit: (pending)
+Commit: 38509d9
 Next candidates: Add a test for get_question_explanation() on Q111; add a question on G-computation / marginal standardisation.
