@@ -291,6 +291,27 @@ test_that("filter_questions can filter by topic and text", {
   expect_true(any(grepl("AUC", auc_questions$question, fixed = TRUE)))
 })
 
+test_that("filter_questions returns empty data frame for non-existent topic", {
+  result <- filter_questions(topic = "Nonexistent Topic XYZ")
+  expect_equal(nrow(result), 0L)
+  expect_true(is.data.frame(result))
+})
+
+test_that("filter_questions combines multiple filters with AND logic", {
+  # Filtering by topic + text should return only rows matching both
+  result <- filter_questions(topic = "Prediction model performance", text = "Brier")
+  expect_gt(nrow(result), 0L)
+  expect_true(all(result$topic == "Prediction model performance"))
+  expect_true(all(grepl("brier", tolower(result$question))))
+})
+
+test_that("filter_questions text search is case-insensitive", {
+  lower_result <- filter_questions(text = "brier score")
+  upper_result <- filter_questions(text = "Brier Score")
+  expect_equal(nrow(lower_result), nrow(upper_result))
+  expect_equal(sort(lower_result$id), sort(upper_result$id))
+})
+
 test_that("sample_questions honors filters and seed", {
   sample_one <- sample_questions(
     n = 1,
