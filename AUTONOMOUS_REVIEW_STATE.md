@@ -118,3 +118,120 @@ Next candidates:
 - Add questions on ATE/CATE (causal inference estimands)
 - Add questions on missing data mechanism (MCAR/MAR/MNAR properties)
 - Remove LazyData: true from DESCRIPTION (no data/ directory)
+
+## 2026-03-12 12:34
+Action: Refined prediction-model performance guidance in knowledge repository to note AUC instability in small/imbalanced samples and emphasize reporting calibration + uncertainty.
+Literature: DAILY_LIT_CONTEXT 2026-03-12 finding on AUC instability and calibration/clinical utility.
+Files: inst/extdata/knowledge_repository.csv
+Validation: pass
+Knowledge repo: updated
+Commit: b87df99
+Next candidates: add 1-2 new questions on calibration metrics (e.g., Brier score) and confidence intervals for discrimination estimates.
+
+## 2026-03-12 12:58
+Action: Refined the Biostatistical Methods knowledge note for prediction model performance to add practical calibration diagnostics (intercept/slope) alongside AUC and uncertainty reporting.
+Literature: DAILY_LIT_CONTEXT 2026-03-12 emphasis on discrimination vs calibration and AUC instability in small/imbalanced samples.
+Files: inst/extdata/knowledge_repository.csv
+Validation: pass
+Knowledge repo: updated
+Commit: b1f0448
+Next candidates: add 1-2 concise questions on calibration metrics or improve tests for edge-case expected outputs.
+
+## 2026-03-12 13:03
+Action: Replaced brittle fixed-row-count unit test with structural integrity checks for questions dataset IDs.
+Literature: Daily discussion on calibration/discrimination suggests question bank will evolve frequently, so tests should assert structure rather than a fixed count.
+Files: tests/testthat/test-questions.R
+Validation: pass
+Knowledge repo: not updated
+Commit: 3aced99
+Next candidates: Add 1-2 calibration-focused questions (AUC uncertainty/calibration metrics) and update knowledge_repository references.
+
+## 2026-03-12 13:33
+Action: Added one prediction-performance exercise (Brier score) and aligned knowledge repository guidance.
+Literature: Lancet Digital Health context emphasized evaluating clinical prediction models beyond AUC using overall performance metrics.
+Files: inst/extdata/questions.csv; inst/extdata/knowledge_repository.csv
+Validation: pass
+Knowledge repo: updated
+Commit: e97eb77
+Next candidates: Add a calibration-focused item (intercept/slope) with a paired note on interpreting miscalibration.
+
+## 2026-03-12 14:01
+Action: Added one new question on approximate AUC standard error in small samples and aligned the prediction-performance knowledge note.
+Literature: AUC instability in small/imbalanced samples motivated adding an explicit uncertainty check.
+Files: inst/extdata/questions.csv; inst/extdata/knowledge_repository.csv
+Validation: pass
+Knowledge repo: updated
+Commit: dc69381
+Next candidates: Add a calibration-focused question (e.g., calibration-in-the-large) with a paired concise knowledge note.
+
+## 2026-03-16 08:42
+Action: Added an isolated regression check and helper override so source-tree runs can prefer local `inst/extdata` files instead of stale installed package data.
+Literature: Today's cached context only contained fetch failures, so repo-state reproducibility took priority for this cycle.
+Files: R/zzz_local_extdata.R; tests/testthat/test-local-extdata.R
+Validation: pass
+Knowledge repo: not updated
+Commit: b12d6a1
+Next candidates: Wire the same local-resource preference into the in-progress question-bank helpers once those source files are ready to stage cleanly.
+
+## 2026-03-16 09:03
+Action: Refined the survival and competing-risks knowledge note to add a practical reminder that hazard interpretation depends on the chosen time scale.
+Literature: The TwoTimeScales survival-analysis package note motivated emphasizing age/follow-up time-scale alignment when interpreting hazards.
+Files: inst/extdata/knowledge_repository.csv
+Validation: pass
+Knowledge repo: updated
+Commit: 5e21870
+Next candidates: Add a compact calibration-focused note or question so prediction-performance coverage balances discrimination with calibration.
+
+## 2026-03-16 09:49
+Action: Refined the prediction-model performance knowledge note to distinguish discrimination from calibration and add a practical intercept/slope reminder.
+Literature: Anytime-valid calibration monitoring motivated emphasizing that calibration should be re-checked over time, not inferred from AUC alone.
+Files: inst/extdata/knowledge_repository.csv
+Validation: pass
+Knowledge repo: updated
+Commit: 8335eb0
+Next candidates: Add a compact calibration-focused question so the question bank covers calibration alongside AUC and Brier score.
+
+## 2026-03-16 09:51
+Action: Refined the prediction-model performance knowledge note to state that repeated calibration checks should use a sequential or anytime-valid procedure.
+Literature: The arXiv calibration-monitoring paper from 2026-03-13 motivated replacing a generic "re-check over time" reminder with a concrete sequential-monitoring rule.
+Files: inst/extdata/knowledge_repository.csv
+Validation: pass
+Knowledge repo: updated
+Commit: 930b1c9
+Next candidates: Add a compact question on calibration intercept/slope or repeated-monitoring false positives so the question bank matches the updated note.
+
+## 2026-03-16 10:03
+Action: Expanded the local extdata regression test so source-checkout loading is exercised for both questions and the knowledge repository.
+Literature: Today's R-package monitoring context kept the cycle focused on repository reproducibility rather than adding new content.
+Files: tests/testthat/test-local-extdata.R
+Validation: pass
+Knowledge repo: not updated
+Commit: a211fd1
+Next candidates: Add a calibration-focused question or a small API test around `get_question_explanation()` using locally loaded knowledge notes.
+
+## 2026-03-16 10:33
+Action: Added a competing-risks cumulative-incidence question and aligned the paired survival knowledge note with the interval formula.
+Literature: The recent survival-analysis package note on smoothing hazards across time scales motivated adding a practical cumulative-incidence reminder within the survival topic.
+Files: inst/extdata/questions.csv, inst/extdata/knowledge_repository.csv
+Validation: pass
+Knowledge repo: updated
+Commit: 73bb2cd
+Next candidates: Add a calibration-focused prediction-performance question or a small test for explanation retrieval on the new high-ID question.
+
+## 2026-03-16 11:01
+Action: Refined the prediction-model-performance knowledge note to make repeated calibration monitoring guidance shorter and more operational.
+Literature: The anytime-valid calibration monitoring paper in today's context motivated clarifying that repeated checks need an anytime-valid procedure.
+Files: inst/extdata/knowledge_repository.csv
+Validation: pass
+Knowledge repo: updated
+Commit: 5902f34
+Next candidates: Add a compact question on calibration intercept/slope or repeated-monitoring false positives so the question bank matches the updated note.
+
+## 2026-03-16 11:20
+Action: Added Q110 on calibration-in-the-large (CITL = logit(obs_rate) - logit(mean_pred)) and updated the prediction-model-performance knowledge note to define CITL explicitly.
+Literature: Prior cycles repeatedly identified calibration intercept/slope as a gap; anytime-valid calibration monitoring context reinforced the need.
+Files: inst/extdata/questions.csv (Q110 appended); inst/extdata/knowledge_repository.csv (CITL definition added, Q110 referenced)
+Validation: pass (all 110 questions valid)
+Knowledge repo: updated
+Commit: eb30557
+Next candidates: Add a calibration slope question (logistic recalibration slope from regressing outcomes on logit(predicted)); add test for get_question_explanation() on high-ID questions.
