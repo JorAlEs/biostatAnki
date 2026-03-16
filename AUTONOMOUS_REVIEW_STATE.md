@@ -244,3 +244,42 @@ Validation: pass (all 111 questions valid)
 Knowledge repo: updated
 Commit: 38509d9
 Next candidates: Add a test for get_question_explanation() on Q111; add a question on G-computation / marginal standardisation.
+
+## 2026-03-16 (C32)
+Action: Fixed two bugs uncovered while adding the get_question_explanation(111) test:
+  1. .infer_question_topic() did not match calibration keywords, causing Q110 (CITL) and
+     Q111 (calibration slope) to fall back to "Descriptive statistics"; added
+     "calibration slope|calibration-in-the-large|\\bcitl\\b|recalibrat" to the
+     Prediction model performance branch.
+  2. test_area_reference for the Prediction model performance knowledge row contained
+     unquoted commas ("Questions 101, 107, 108, 110, and 111"), so read.csv truncated
+     it to "Questions 101"; properly quoted the field in knowledge_repository.csv.
+  Also added get_question_explanation(111) regression test.
+Literature: Prior cycles identified calibration coverage gaps; test failure on Q111
+  directly revealed both bugs.
+Files: R/question_bank.R; inst/extdata/knowledge_repository.csv; tests/testthat/test-questions.R
+Validation: pass (98 tests, 0 failures)
+Knowledge repo: updated (CSV quoting fixed, no new concept)
+Commit: 03950cb
+Next candidates:
+- Add a question on G-computation / marginal standardisation (coverage gap since C31)
+- Add a question on sample size calculation for two-proportion z-test
+- Check other test_area_reference fields for similar unquoted-comma CSV bugs (rows 6, 9, 14)
+- Add get_question_explanation() tests for other calibration questions (Q107, Q108, Q110)
+
+## 2026-03-16 (C33)
+Action: Added Q112 (G-computation marginal ATE) and Q113 (two-proportion z-test sample size);
+  added get_question_explanation() regression tests for Q107, Q108, Q110, Q112, and Q113;
+  verified other test_area_reference fields (rows 6, 9, 14) have no unquoted-comma bugs.
+Files:
+  - inst/extdata/questions.csv (Q112 and Q113 appended)
+  - inst/extdata/knowledge_repository.csv (G-computation note added to Causal inference row;
+    new Sample size and power row added for Q113)
+  - tests/testthat/test-questions.R (get_question_explanation tests for Q107, Q108, Q110,
+    Q112, Q113 added)
+Validation: pass (108 tests, 0 failures; all 113 questions valid)
+Knowledge repo: updated
+Next candidates:
+- Add a question on instrumental variable estimation (two-stage least squares)
+- Add a question on restricted mean survival time (RMST) as an alternative to hazard ratio
+- Add test coverage for filter_questions() edge cases (empty result, multiple filters)

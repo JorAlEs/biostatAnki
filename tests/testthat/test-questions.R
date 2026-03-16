@@ -320,6 +320,36 @@ test_that("get_question_explanation on Q111 references calibration slope", {
   expect_match(explanation$test_area_reference, "111")
 })
 
+test_that("get_question_explanation on Q107 returns Prediction model performance", {
+  explanation <- get_question_explanation(107)
+  expect_equal(explanation$topic, "Prediction model performance")
+  expect_match(explanation$summary, "Brier|AUC|discrimination", ignore.case = TRUE)
+})
+
+test_that("get_question_explanation on Q108 returns Prediction model performance", {
+  explanation <- get_question_explanation(108)
+  expect_equal(explanation$topic, "Prediction model performance")
+  expect_match(explanation$summary, "AUC|uncertainty|discrimination", ignore.case = TRUE)
+})
+
+test_that("get_question_explanation on Q110 returns Prediction model performance with CITL", {
+  explanation <- get_question_explanation(110)
+  expect_equal(explanation$topic, "Prediction model performance")
+  expect_match(explanation$summary, "CITL|calibration", ignore.case = TRUE)
+})
+
+test_that("get_question_explanation on Q112 returns Causal inference and missing data", {
+  explanation <- get_question_explanation(112)
+  expect_equal(explanation$topic, "Causal inference and missing data")
+  expect_match(explanation$summary, "G-computation|marginal|ATE", ignore.case = TRUE)
+})
+
+test_that("get_question_explanation on Q113 returns Sample size and power", {
+  explanation <- get_question_explanation(113)
+  expect_equal(explanation$topic, "Sample size and power")
+  expect_match(explanation$summary, "sample size|power|z-test", ignore.case = TRUE)
+})
+
 test_that("validate_question_row returns metadata and validation detail", {
   valid_row <- validate_question_row(list(
     id = 999L,
