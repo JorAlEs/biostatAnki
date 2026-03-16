@@ -42,7 +42,7 @@
     return(c(section = "Biostatistical Methods", topic = "Bayesian inference"))
   }
 
-  if (grepl("mendelian randomization|average treatment effect|\\bate\\b|\\bcate\\b|randomized experiment|missing completely at random|\\bmcar\\b", text)) {
+  if (grepl("g.computation|marginal standard|mendelian randomization|average treatment effect|\\bate\\b|\\bcate\\b|randomized experiment|missing completely at random|\\bmcar\\b", text)) {
     return(c(section = "Biostatistical Methods", topic = "Causal inference and missing data"))
   }
 
@@ -56,6 +56,10 @@
 
   if (grepl("cohort study|case-control|diagnostic test|screening test|relative risk|odds ratio|number needed to treat|\\bnnt\\b|attributable risk|specificity|sensitivity|positive predictive value|\\bppv\\b", text)) {
     return(c(section = "Biostatistics", topic = "Epidemiologic measures"))
+  }
+
+  if (grepl("sample size|power calculation|minimum per.group sample|minimum required sample", text)) {
+    return(c(section = "Biostatistics", topic = "Sample size and power"))
   }
 
   if (grepl("t-test|confidence interval|z-test|cohen's d|chi-square|f-statistic|anova|binomial distribution|standard error of the mean", text)) {

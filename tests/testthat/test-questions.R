@@ -371,6 +371,24 @@ test_that("get_question_explanation on Q113 returns Sample size and power", {
   expect_match(explanation$summary, "sample size|power|z-test", ignore.case = TRUE)
 })
 
+test_that("get_question_explanation on Q109 returns Survival and competing risks", {
+  explanation <- get_question_explanation(109)
+  expect_equal(explanation$topic, "Survival and competing risks")
+  expect_match(explanation$summary, "cumulative incidence|competing|survival", ignore.case = TRUE)
+})
+
+test_that("get_question_explanation on Q114 returns Survival and competing risks with RMST", {
+  explanation <- get_question_explanation(114)
+  expect_equal(explanation$topic, "Survival and competing risks")
+  expect_match(explanation$summary, "RMST|restricted mean", ignore.case = TRUE)
+})
+
+test_that("filter_questions can filter by tags", {
+  survival_qs <- filter_questions(tags = "survival")
+  expect_gt(nrow(survival_qs), 0L)
+  expect_true(all(grepl("survival", survival_qs$tags)))
+})
+
 test_that("validate_question_row returns metadata and validation detail", {
   valid_row <- validate_question_row(list(
     id = 999L,
