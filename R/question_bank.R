@@ -34,7 +34,7 @@
     return(c(section = "Biostatistical Methods", topic = "Mixed models and ICC"))
   }
 
-  if (grepl("auc|c-statistic|concordance statistic|concordant pairs|brier score", text)) {
+  if (grepl("auc|c-statistic|concordance statistic|concordant pairs|brier score|calibration slope|calibration-in-the-large|\\bcitl\\b|recalibrat", text)) {
     return(c(section = "Biostatistical Methods", topic = "Prediction model performance"))
   }
 

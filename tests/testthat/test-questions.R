@@ -83,6 +83,13 @@ test_that("load_questions returns a data.frame with required columns", {
   expect_true(all(c("id", "question", "code", "expected_output") %in% names(qdf)))
 })
 
+test_that("load_questions can append derived metadata", {
+  qdf <- load_questions(include_metadata = TRUE)
+  expect_true(all(c("section", "topic", "difficulty", "tags") %in% names(qdf)))
+  expect_true(all(nzchar(qdf$topic)))
+  expect_true(all(qdf$difficulty %in% c("beginner", "intermediate", "advanced")))
+})
+
 test_that("load_questions has non-empty, unique, contiguous ids", {
   qdf <- load_questions()
   expect_gt(nrow(qdf), 0L)
@@ -157,6 +164,12 @@ test_that("check_answer handles 'matrix' keyword correctly", {
   expect_false(check_answer("c(1, 2, 3)", "matrix"))
 })
 
+test_that("compare_answer_result handles table and list keywords", {
+  expect_true(compare_answer_result(data.frame(a = 1:2), "table"))
+  expect_true(compare_answer_result(list(alpha = 1), "list"))
+  expect_false(compare_answer_result(c(1, 2, 3), "table"))
+})
+
 test_that("check_answer supports expression-style expected outputs", {
   expect_true(check_answer("c(TRUE, FALSE)", "c(TRUE, FALSE)"))
   expect_false(check_answer("c(TRUE, FALSE)", "c(TRUE, TRUE)"))
@@ -216,6 +229,18 @@ test_that(".compare_expected_output handles logical and list fallbacks", {
   )
 })
 
+test_that("evaluate_answer supports injected bindings", {
+  evaluation <- evaluate_answer(
+    user_code = "mean(mock_data$value)",
+    expected_output = "2",
+    bindings = list(mock_data = data.frame(value = c(1, 2, 3)))
+  )
+
+  expect_true(evaluation$ok)
+  expect_true(evaluation$matches_expected)
+  expect_equal(evaluation$result, 2)
+})
+
 # --- get_question -------------------------------------------------------------
 
 test_that("get_question returns a list with expected elements", {
@@ -224,8 +249,97 @@ test_that("get_question returns a list with expected elements", {
   expect_true(all(c("question", "code", "expected_output") %in% names(q)))
 })
 
+test_that("get_question can include metadata and explanation", {
+  q <- get_question(100, include_metadata = TRUE, include_explanation = TRUE)
+  expect_true(all(c("section", "topic", "difficulty", "tags", "explanation") %in% names(q)))
+  expect_equal(q$explanation$topic, q$topic)
+})
+
 test_that("get_question stops on invalid id", {
   expect_error(get_question(9999), "Invalid question id")
+})
+
+# --- question-bank helpers ----------------------------------------------------
+
+test_that("load_knowledge_repository returns expected columns", {
+  knowledge <- load_knowledge_repository()
+  expect_true(all(c("section", "topic", "summary", "test_area_reference") %in% names(knowledge)))
+  expect_gt(nrow(knowledge), 0L)
+})
+
+test_that("list_question_topics summarises the derived topics", {
+  topics <- list_question_topics()
+  expect_true(all(c("section", "topic", "n_questions") %in% names(topics)))
+  expect_true(any(topics$topic == "Prediction model performance"))
+})
+
+test_that("summarize_question_bank returns coverage tables", {
+  summary <- summarize_question_bank()
+  expect_equal(summary$n_questions, nrow(load_questions()))
+  expect_true(all(c("section", "topic", "n_questions") %in% names(summary$by_topic)))
+  expect_true(all(c("difficulty", "n_questions") %in% names(summary$by_difficulty)))
+  expect_true(any(summary$by_result_type$result_type == "numeric"))
+})
+
+test_that("filter_questions can filter by topic and text", {
+  prediction_questions <- filter_questions(topic = "Prediction model performance")
+  expect_gt(nrow(prediction_questions), 0L)
+  expect_true(all(prediction_questions$topic == "Prediction model performance"))
+
+  auc_questions <- filter_questions(text = "AUC")
+  expect_gt(nrow(auc_questions), 0L)
+  expect_true(any(grepl("AUC", auc_questions$question, fixed = TRUE)))
+})
+
+test_that("sample_questions honors filters and seed", {
+  sample_one <- sample_questions(
+    n = 1,
+    topic = "Bayesian inference",
+    seed = 1
+  )
+  sample_two <- sample_questions(
+    n = 1,
+    topic = "Bayesian inference",
+    seed = 1
+  )
+
+  expect_equal(sample_one$id, sample_two$id)
+  expect_equal(sample_one$topic, "Bayesian inference")
+})
+
+test_that("get_question_explanation returns the paired knowledge note", {
+  explanation <- get_question_explanation(101)
+  expect_equal(explanation$topic, "Prediction model performance")
+  expect_match(explanation$summary, "AUC|Brier|discrimination")
+})
+
+test_that("get_question_explanation on Q111 references calibration slope", {
+  explanation <- get_question_explanation(111)
+  expect_equal(explanation$topic, "Prediction model performance")
+  expect_match(explanation$summary, "slope|calibration", ignore.case = TRUE)
+  expect_match(explanation$test_area_reference, "111")
+})
+
+test_that("validate_question_row returns metadata and validation detail", {
+  valid_row <- validate_question_row(list(
+    id = 999L,
+    question = "Compute 1 + 1",
+    code = "1 + 1",
+    expected_output = "2"
+  ))
+
+  expect_true(valid_row$valid[[1]])
+  expect_equal(valid_row$topic[[1]], "Descriptive statistics")
+
+  invalid_row <- validate_question_row(list(
+    id = 1000L,
+    question = "Compute 1 + 1",
+    code = "1 + 1",
+    expected_output = "3"
+  ))
+
+  expect_false(invalid_row$valid[[1]])
+  expect_match(invalid_row$detail[[1]], "^got:")
 })
 
 # --- validate_questions -------------------------------------------------------
