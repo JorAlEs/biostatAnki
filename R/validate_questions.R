@@ -1,37 +1,50 @@
-#' Validate all quiz questions
+#' Validate all Quiz Questions
 #'
-#' Evaluates every code snippet in `questions_df`
-#' and checks it against `expected_output` via the same
-#' comparison logic used in the app.
-#' Returns an invisible data.frame summarising failures.
+#' Evaluates every canonical code snippet in `questions_df` and checks it
+#' against `expected_output` via the same shared comparison logic used by the
+#' app and package helpers.
 #'
-#' @param questions_df A data.frame with columns \code{id}, \code{question},
-#'   \code{code}, and \code{expected_output}.  Defaults to
-#'   \code{biostatAnki::load_questions()}.
+#' @param questions_df A `data.frame` with columns `id`, `question`, `code`, and
+#'   `expected_output`. Defaults to `load_questions()`.
 #' @param tolerance Numeric tolerance used when comparing numeric results.
-#'   Default \code{1e-6}.
+#' @return Invisibly returns `questions_df` augmented with `valid` and `detail`
+#'   columns.
+#' @examples
+#' validation <- validate_questions()
+#' all(validation$valid)
 #' @export
-validate_questions <- function(
-  questions_df = biostatAnki::load_questions(),
-  tolerance = 1e-6
-) {
-    if (!is.data.frame(questions_df) || !all(c("id", "question", "code", "expected_output") %in% names(questions_df))) {
-        stop("Invalid questions_df format. Must contain 'id', 'question', 'code', and 'expected_output' columns.")
+validate_questions <- function(questions_df = biostatAnki::load_questions(),
+                               tolerance = 1e-6) {
+  required_columns <- c("id", "question", "code", "expected_output")
+
+  if (!is.data.frame(questions_df) || !all(required_columns %in% names(questions_df))) {
+    stop(
+      "Invalid questions_df format. Must contain 'id', 'question', 'code', and 'expected_output' columns."
+    )
   }
 
-  check_row <- function(code, expected) {
-    env <- new.env(parent = .quiz_eval_parent())
-    res <- try(eval(parse(text = code), envir = env), silent = TRUE)
-    if (inherits(res, "try-error"))
-      return(list(ok = FALSE, msg = conditionMessage(attr(res, "condition"))))
-    if (!.compare_expected_output(res, expected, tolerance = tolerance))
-      return(list(ok = FALSE, msg = paste("got:", toString(res))))
+  res_list <- lapply(seq_len(nrow(questions_df)), function(i) {
+    evaluation <- evaluate_answer(
+      user_code = questions_df$code[[i]],
+      tolerance = tolerance
+    )
+
+    if (!evaluation$ok) {
+      return(list(ok = FALSE, msg = evaluation$error))
+    }
+
+    if (!compare_answer_result(
+      result = evaluation$result,
+      expected_output = questions_df$expected_output[[i]],
+      tolerance = tolerance
+    )) {
+      return(list(ok = FALSE, msg = paste("got:", toString(evaluation$result))))
+    }
+
     list(ok = TRUE, msg = "")
-  }
+  })
 
-  res_list <- Map(check_row, questions_df$code, questions_df$expected_output)
-
-  questions_df$valid  <- vapply(res_list, `[[`, logical(1), "ok")
+  questions_df$valid <- vapply(res_list, `[[`, logical(1), "ok")
   questions_df$detail <- vapply(res_list, `[[`, character(1), "msg")
 
   bad <- questions_df[!questions_df$valid, c("id", "question", "detail")]
@@ -41,5 +54,6 @@ validate_questions <- function(
   } else {
     message("\u2705  All questions passed")
   }
+
   invisible(questions_df)
 }
