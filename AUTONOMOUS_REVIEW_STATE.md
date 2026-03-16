@@ -235,3 +235,12 @@ Validation: pass (all 110 questions valid)
 Knowledge repo: updated
 Commit: eb30557
 Next candidates: Add a calibration slope question (logistic recalibration slope from regressing outcomes on logit(predicted)); add test for get_question_explanation() on high-ID questions.
+
+## 2026-03-16 (C31)
+Action: Added Q111 on logistic recalibration (recalibrated log-odds = a + s * lp) and expanded the prediction-model-performance knowledge note to define calibration slope and its interpretation (slope < 1 = over-fitting, slope > 1 = under-fitting).
+Literature: Prior cycles identified calibration slope as a coverage gap; the anytime-valid calibration monitoring context reinforced that both CITL and slope are needed for complete recalibration.
+Files: inst/extdata/questions.csv (Q111 appended); inst/extdata/knowledge_repository.csv (calibration slope definition added, Q111 referenced)
+Validation: pass (all 111 questions valid)
+Knowledge repo: updated
+Commit: (pending)
+Next candidates: Add a test for get_question_explanation() on Q111; add a question on G-computation / marginal standardisation.
