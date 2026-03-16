@@ -267,6 +267,40 @@ Next candidates:
 - Check other test_area_reference fields for similar unquoted-comma CSV bugs (rows 6, 9, 14)
 - Add get_question_explanation() tests for other calibration questions (Q107, Q108, Q110)
 
+## 2026-03-16 (C35)
+Action: Added Q114 (restricted mean survival time / RMST), updated survival
+  knowledge note with RMST definition, and added three new tests:
+  get_question_explanation(109), get_question_explanation(114), and
+  filter_questions(tags = "survival") — first coverage of the tags filter branch.
+  Also flushed the staged R/question_bank.R topic-inference fixes (G-computation
+  and sample size/power) that had been staged since C33.
+Files:
+  - inst/extdata/questions.csv (Q114 appended)
+  - inst/extdata/knowledge_repository.csv (RMST added to survival note; Q114 referenced)
+  - tests/testthat/test-questions.R (3 new tests)
+  - R/question_bank.R (staged fixes committed)
+Validation: pass (121 tests, 0 failures; all 114 questions valid)
+Knowledge repo: updated
+Commit: 68e2f35
+Next candidates:
+- Add a question on instrumental variable estimation (two-stage least squares)
+- Add a question on Kaplan-Meier log-rank test statistic
+- Add get_question_explanation() test for Q114 explanation content depth
+- Expand tags in .infer_question_tags() to cover RMST questions
+
+## 2026-03-16 (C34)
+Action: Added three filter_questions() edge-case tests: (1) empty data frame returned for a non-existent topic, (2) multiple filters (topic + text) combined with AND logic, (3) text search is case-insensitive.
+Literature: none — test coverage gap from C33 next candidates.
+Files: tests/testthat/test-questions.R
+Validation: pass (115 tests, 0 failures)
+Knowledge repo: not updated
+Commit: 565f4cf
+Next candidates:
+- Add a question on instrumental variable estimation (two-stage least squares)
+- Add a question on restricted mean survival time (RMST) as an alternative to hazard ratio
+- Add get_question_explanation() test for Q109 (competing-risks cumulative incidence)
+- Add tags-based filter_questions() test (currently untested filter branch)
+
 ## 2026-03-16 (C33)
 Action: Added Q112 (G-computation marginal ATE) and Q113 (two-proportion z-test sample size);
   added get_question_explanation() regression tests for Q107, Q108, Q110, Q112, and Q113;
