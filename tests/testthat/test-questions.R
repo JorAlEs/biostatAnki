@@ -381,6 +381,9 @@ test_that("get_question_explanation on Q114 returns Survival and competing risks
   explanation <- get_question_explanation(114)
   expect_equal(explanation$topic, "Survival and competing risks")
   expect_match(explanation$summary, "RMST|restricted mean", ignore.case = TRUE)
+  expect_match(explanation$summary, "area under the KM curve|sum of S\\(t_i\\) \\* interval_width", ignore.case = TRUE)
+  expect_match(explanation$summary, "alternative to the hazard ratio|proportional hazards", ignore.case = TRUE)
+  expect_match(explanation$test_area_reference, "114")
 })
 
 test_that("filter_questions can filter by tags", {
