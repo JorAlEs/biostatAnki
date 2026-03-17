@@ -389,6 +389,17 @@ test_that("filter_questions can filter by tags", {
   expect_true(all(grepl("survival", survival_qs$tags)))
 })
 
+test_that("filter_questions keeps RMST items in the survival tag results", {
+  rmst_qs <- filter_questions(
+    tags = "survival",
+    text = "restricted mean survival time"
+  )
+
+  expect_gt(nrow(rmst_qs), 0L)
+  expect_true(114L %in% rmst_qs$id)
+  expect_true(all(rmst_qs$topic == "Survival and competing risks"))
+})
+
 test_that("validate_question_row returns metadata and validation detail", {
   valid_row <- validate_question_row(list(
     id = 999L,
