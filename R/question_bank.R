@@ -42,7 +42,7 @@
     return(c(section = "Biostatistical Methods", topic = "Bayesian inference"))
   }
 
-  if (grepl("g.computation|marginal standard|mendelian randomization|average treatment effect|\\bate\\b|\\bcate\\b|randomized experiment|missing completely at random|\\bmcar\\b", text)) {
+  if (grepl("g.computation|marginal standard|mendelian randomization|average treatment effect|\\bate\\b|\\bcate\\b|randomized experiment|missing completely at random|\\bmcar\\b|instrumental[- ]variable|two[- ]stage least squares|\\b2sls\\b|wald estimator|local average treatment effect|\\blate\\b|complier", text)) {
     return(c(section = "Biostatistical Methods", topic = "Causal inference and missing data"))
   }
 
