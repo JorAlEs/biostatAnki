@@ -386,6 +386,37 @@ test_that("get_question_explanation on Q114 returns Survival and competing risks
   expect_match(explanation$test_area_reference, "114")
 })
 
+test_that("get_question_explanation falls back when knowledge row is missing", {
+  questions_df <- load_questions(include_metadata = TRUE)
+  question_row <- questions_df[questions_df$id == 101, , drop = FALSE]
+  knowledge_df <- load_knowledge_repository()
+  knowledge_df <- knowledge_df[
+    !(knowledge_df$section == question_row$section[[1]] &
+        knowledge_df$topic == question_row$topic[[1]]),
+    ,
+    drop = FALSE
+  ]
+
+  explanation <- get_question_explanation(
+    101,
+    questions_df = questions_df,
+    knowledge_df = knowledge_df
+  )
+
+  expect_equal(explanation$id, 101)
+  expect_equal(explanation$section, question_row$section[[1]])
+  expect_equal(explanation$topic, question_row$topic[[1]])
+  expect_equal(
+    explanation$summary,
+    sprintf(
+      "This question is classified under %s in the %s section.",
+      question_row$topic[[1]],
+      question_row$section[[1]]
+    )
+  )
+  expect_equal(explanation$test_area_reference, "Question 101")
+})
+
 test_that("filter_questions can filter by tags", {
   survival_qs <- filter_questions(tags = "survival")
   expect_gt(nrow(survival_qs), 0L)
