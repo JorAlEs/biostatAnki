@@ -382,6 +382,21 @@ test_that("load_questions keeps IV / 2SLS items under causal inference", {
   expect_equal(question_row$section[[1]], "Biostatistical Methods")
 })
 
+test_that("metadata augmentation keeps log-rank chi-square items under survival", {
+  question_row <- data.frame(
+    id = 999,
+    question = "Compute the log-rank chi-square statistic for two groups.",
+    code = "(O1 - E1)^2 / V",
+    expected_output = "4.375",
+    stringsAsFactors = FALSE
+  )
+
+  metadata <- getFromNamespace(".augment_question_metadata", "biostatAnki")(question_row)
+
+  expect_equal(metadata$topic[[1]], "Survival and competing risks")
+  expect_equal(metadata$section[[1]], "Biostatistical Methods")
+})
+
 test_that("get_question_explanation on Q113 returns Sample size and power", {
   explanation <- get_question_explanation(113)
   expect_equal(explanation$topic, "Sample size and power")

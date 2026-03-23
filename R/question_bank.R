@@ -46,7 +46,7 @@
     return(c(section = "Biostatistical Methods", topic = "Causal inference and missing data"))
   }
 
-  if (grepl("kaplan-meier|survival|hazard|person-years|competing risk|fine-gray", text)) {
+  if (grepl("kaplan-meier|log[- ]rank|survival|hazard|person-years|competing risk|fine-gray", text)) {
     return(c(section = "Biostatistical Methods", topic = "Survival and competing risks"))
   }
 
