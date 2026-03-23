@@ -365,6 +365,14 @@ test_that("get_question_explanation on Q112 returns Causal inference and missing
   expect_match(explanation$summary, "G-computation|marginal|ATE", ignore.case = TRUE)
 })
 
+test_that("get_question_explanation on Q115 returns the IV / 2SLS knowledge note", {
+  explanation <- get_question_explanation(115)
+  expect_equal(explanation$topic, "Causal inference and missing data")
+  expect_match(explanation$summary, "Wald|2SLS|instrumental-variable", ignore.case = TRUE)
+  expect_match(explanation$summary, "local average treatment effect|complier", ignore.case = TRUE)
+  expect_match(explanation$test_area_reference, "115")
+})
+
 test_that("load_questions keeps IV / 2SLS items under causal inference", {
   question_row <- load_questions(include_metadata = TRUE)
   question_row <- question_row[question_row$id == 115, , drop = FALSE]
