@@ -434,6 +434,34 @@ test_that("get_question_explanation falls back when knowledge row is missing", {
   expect_equal(explanation$test_area_reference, "Question 101")
 })
 
+test_that("get_question_explanation augments metadata when needed", {
+  questions_df <- load_questions(include_metadata = FALSE)
+  knowledge_df <- load_knowledge_repository()
+  expected <- get_question_explanation(
+    115,
+    questions_df = load_questions(include_metadata = TRUE),
+    knowledge_df = knowledge_df
+  )
+  augment_called <- FALSE
+  original_augment <- getFromNamespace(".augment_question_metadata", "biostatAnki")
+
+  explanation <- with_mocked_bindings(
+    get_question_explanation(
+      115,
+      questions_df = questions_df,
+      knowledge_df = knowledge_df
+    ),
+    .augment_question_metadata = function(questions) {
+      augment_called <<- TRUE
+      original_augment(questions)
+    },
+    .package = "biostatAnki"
+  )
+
+  expect_true(augment_called)
+  expect_identical(explanation, expected)
+})
+
 test_that("filter_questions can filter by tags", {
   survival_qs <- filter_questions(tags = "survival")
   expect_gt(nrow(survival_qs), 0L)
