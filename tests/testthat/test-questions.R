@@ -418,6 +418,15 @@ test_that("get_question_explanation on Q114 returns Survival and competing risks
   expect_match(explanation$test_area_reference, "114")
 })
 
+test_that("get_question_explanation on Q116 returns Survival and competing risks with log-rank details", {
+  explanation <- get_question_explanation(116)
+  expect_equal(explanation$topic, "Survival and competing risks")
+  expect_match(explanation$summary, "log-rank", ignore.case = TRUE)
+  expect_match(explanation$summary, "\\(O - E\\)\\^2 / V")
+  expect_match(explanation$summary, "observed minus expected events|null variance", ignore.case = TRUE)
+  expect_match(explanation$test_area_reference, "116")
+})
+
 test_that("get_question_explanation falls back when knowledge row is missing", {
   questions_df <- load_questions(include_metadata = TRUE)
   question_row <- questions_df[questions_df$id == 101, , drop = FALSE]
