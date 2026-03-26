@@ -4,23 +4,28 @@
 \alias{get_question}
 \title{Retrieve a Single Question}
 \usage{
-get_question(id)
+get_question(id, include_metadata = FALSE, include_explanation = FALSE)
 }
 \arguments{
 \item{id}{An integer corresponding to the desired question ID.}
+
+\item{include_metadata}{Logical. If `TRUE`, include derived metadata fields.}
+
+\item{include_explanation}{Logical. If `TRUE`, include the paired topic note
+from the knowledge repository.}
 }
 \value{
-A list with elements `question`, `code`, and `expected_output`.
+A named list describing a single question.
 }
 \description{
-Given a question ID, this helper returns a list containing the
-question text, the canonical code that solves it, and the
-expected output.  It is primarily used internally by the
-Shiny application but may also be useful for programmatic access.
+Given a question ID, returns a named list containing the question text, the
+canonical code that solves it, and the expected output. Metadata and the
+paired explanation can also be included on demand.
 }
 \examples{
-\dontrun{
-  q <- get_question(1)
-  cat(q$question)
-}
+q <- get_question(1)
+cat(q$question)
+
+q_meta <- get_question(100, include_metadata = TRUE, include_explanation = TRUE)
+q_meta$topic
 }

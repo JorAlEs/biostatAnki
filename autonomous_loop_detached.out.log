@@ -1,0 +1,16 @@
+[2026-03-17 09:22:10] Removing stale loop lock for agent 'chatgpt' (pid 44188).
+[2026-03-17 09:22:10] Autonomous loop started (chatgpt). Interval: 30 min. Repo: C:\Users\Jorge\Documents\Proyectos\biostatanki\biostatAnki
+[2026-03-17 09:22:10] === Cycle start ===
+[2026-03-17 09:22:10] Pre-existing dirty package paths excluded from fallback: DESCRIPTION, inst/app/app.R, man/check_answer.Rd, man/compare_answer_result.Rd, man/evaluate_answer.Rd, man/filter_questions.Rd, man/get_question_explanation.Rd, man/get_question.Rd, man/list_question_topics.Rd, man/load_knowledge_repository.Rd, man/load_questions.Rd, man/sample_questions.Rd, man/summarize_question_bank.Rd, man/validate_question_row.Rd, man/validate_questions.Rd, NAMESPACE, NEWS.md, README.md, tests/testthat/test-autonomous-loop.R, vignettes/getting-started.Rmd
+[2026-03-17 09:22:10] [cycle] Warning: daily fetch step exited with code null. Continuing cycle.
+[2026-03-17 09:22:10] [cycle] Provider order for this cycle: codex -> claude -> ollama.
+[2026-03-17 09:22:10] [cycle] Attempting agent 'codex'.
+[2026-03-17 09:22:10] [cycle] Agent 'codex' failed. Class=hard, exit=1.
+[2026-03-17 09:22:10] [cycle] Attempting agent 'claude'.
+[2026-03-17 09:22:10] [cycle] Agent 'claude' failed. Class=hard, exit=1.
+[2026-03-17 09:22:10] [cycle] Agent 'ollama' unavailable: command not found (ollama).
+[2026-03-17 09:22:10] [cycle] Agent 'ollama' failed. Class=hard, exit=127.
+[2026-03-17 09:22:10] [cycle] All agents failed in this cycle: codex -> claude -> ollama.
+[2026-03-17 09:22:10] Cycle runner exited with code 127.
+[2026-03-17 09:22:10] Only pre-existing dirty package paths remain. No fallback commit.
+[2026-03-17 09:22:11] === Cycle end. Next run at 03/17/2026 09:30:00 (sleep 469 s) ===

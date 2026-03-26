@@ -3,6 +3,10 @@
 .RData
 .Ruserdata
 autonomous_runtime.log
+DAILY_LIT_CONTEXT.md
+daily_context/
+provider_state.json
+autonomous_cycle_context.json
 
 # AI assistant / autonomous tooling artifacts
 CLAUDE.md
@@ -15,9 +19,22 @@ run_autonomous_loop.ps1
 STOP_AUTONOMOUS_LOOP
 run_biostatanki_codex_loop*.ps1
 autonomous_runtime_codex.log
+autonomous_loop.ps1
+autonomous_loop_claude.ps1
+STOP_AUTONOMOUS_LOOP_CLAUDE
+AUTONOMOUS_ACTIVE_AGENT.txt
+run_cycle.js
+run_cycle_claude.js
+daily_external_fetch.js
+autonomous_cycle_latest.log
+autonomous_cycle_claude_latest.log
 
 # Common local assistant metadata
 .claude/
 .codex/
 .aider*
 docs
+
+# Autonomous loop secrets and state
+loop_secrets.ps1
+autonomous_active_model.txt

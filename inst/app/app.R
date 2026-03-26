@@ -2,20 +2,25 @@ library(shiny)
 library(biostatAnki)
 
 # --- data -----------------------------------------------------------
-questions_df <- load_questions()
-knowledge_path <- system.file("extdata", "knowledge_repository.csv", package = "biostatAnki")
-if (knowledge_path == "") {
-  stop("Knowledge repository file not found in package resources.")
-}
-knowledge_df <- utils::read.csv(knowledge_path, stringsAsFactors = FALSE)
+questions_df <- load_questions(include_metadata = TRUE)
+knowledge_df <- load_knowledge_repository()
 knowledge_sections <- unique(knowledge_df$section)
+topic_choices <- c("All topics", list_question_topics(questions_df)$topic)
 
 # --- modules --------------------------------------------------------
-mod_testing_ui <- function(id) {
+mod_testing_ui <- function(id, topic_choices) {
   ns <- NS(id)
 
   sidebarLayout(
     sidebarPanel(
+      selectInput(
+        ns("topic_input"),
+        "Topic filter:",
+        choices = topic_choices,
+        selected = "All topics"
+      ),
+      textOutput(ns("progress_text")),
+      tags$hr(),
       h4("Question"),
       textOutput(ns("question_text")),
       tags$hr(),
@@ -23,93 +28,163 @@ mod_testing_ui <- function(id) {
         ns("code_input"),
         label = "Enter your R code:",
         value = "",
-        rows  = 5,
+        rows = 5,
         width = "100%"
       ),
-      actionButton(ns("run_btn"),   "Run code",      class = "btn-primary"),
-      tags$br(), tags$br(),
-      actionButton(ns("check_btn"), "Check answer",  class = "btn-success"),
-      tags$br(), tags$br(),
-      actionButton(ns("next_btn"),  "Next question", class = "btn-secondary")
+      actionButton(ns("run_btn"), "Run code", class = "btn-primary"),
+      tags$br(),
+      tags$br(),
+      actionButton(ns("check_btn"), "Check answer", class = "btn-success"),
+      tags$br(),
+      tags$br(),
+      actionButton(ns("next_btn"), "Next question", class = "btn-secondary")
     ),
     mainPanel(
       h4("Result"),
       verbatimTextOutput(ns("result_out")),
       tags$hr(),
       h4("Feedback"),
-      verbatimTextOutput(ns("feedback_out"))
+      verbatimTextOutput(ns("feedback_out")),
+      tags$hr(),
+      h4("Explanation"),
+      verbatimTextOutput(ns("explanation_out"))
     )
   )
 }
 
 mod_testing_server <- function(id, questions_df) {
   moduleServer(id, function(input, output, session) {
-    order_vec  <- sample.int(nrow(questions_df))
-    pos        <- reactiveVal(1)
-    result_val <- reactiveVal(NULL)
-    current_id <- reactive(order_vec[pos()])
+    order_vec <- reactiveVal(integer())
+    pos <- reactiveVal(1L)
+    evaluation_val <- reactiveVal(NULL)
 
-    compare <- function(result, expected) {
-      if (expected == "vector") return(is.atomic(result) && is.null(dim(result)))
-      if (expected == "matrix") return(is.matrix(result))
-
-      exp_num <- suppressWarnings(as.numeric(expected))
-      if (!is.na(exp_num) && is.numeric(result)) {
-        return(isTRUE(all.equal(as.numeric(result), exp_num, tolerance = 1e-6)))
-      }
-
-      if (is.character(expected) && is.character(result)) {
-        return(identical(trimws(result), trimws(expected)))
-      }
-
-      identical(result, expected)
+    clear_outputs <- function() {
+      evaluation_val(NULL)
+      output$result_out <- renderText("")
+      output$feedback_out <- renderText("")
+      output$explanation_out <- renderText("")
     }
 
+    filtered_indices <- reactive({
+      if (is.null(input$topic_input) || identical(input$topic_input, "All topics")) {
+        return(seq_len(nrow(questions_df)))
+      }
+
+      which(questions_df$topic == input$topic_input)
+    })
+
+    observeEvent(filtered_indices(), {
+      indices <- filtered_indices()
+
+      if (length(indices) == 0) {
+        order_vec(integer())
+        pos(1L)
+        clear_outputs()
+        return()
+      }
+
+      order_vec(sample(indices))
+      pos(1L)
+      updateTextAreaInput(session, "code_input", value = "")
+      clear_outputs()
+    }, ignoreInit = FALSE)
+
+    current_index <- reactive({
+      req(length(order_vec()) > 0)
+      order_vec()[[pos()]]
+    })
+
+    current_question <- reactive({
+      req(length(order_vec()) > 0)
+      questions_df[current_index(), , drop = FALSE]
+    })
+
+    output$progress_text <- renderText({
+      if (length(order_vec()) == 0) {
+        return("No questions available for the current filter.")
+      }
+
+      sprintf(
+        "Question %s of %s | %s | %s",
+        pos(),
+        length(order_vec()),
+        current_question()$topic[[1]],
+        current_question()$difficulty[[1]]
+      )
+    })
+
     output$question_text <- renderText({
-      questions_df$question[current_id()]
+      if (length(order_vec()) == 0) {
+        return("No questions available for the selected topic.")
+      }
+
+      current_question()$question[[1]]
     })
 
     observeEvent(input$run_btn, {
-      res <- try(
-        eval(parse(text = input$code_input), envir = new.env(parent = globalenv())),
-        silent = TRUE
-      )
+      if (length(order_vec()) == 0) {
+        output$result_out <- renderText("Select a topic with available questions.")
+        return()
+      }
 
-      if (inherits(res, "try-error")) {
-        result_val(NULL)
-        output$result_out   <- renderText("Error while executing your code.")
-        output$feedback_out <- renderText("")
-      } else {
-        result_val(res)
+      evaluation <- evaluate_answer(input$code_input)
+      evaluation_val(evaluation)
+
+      if (!evaluation$ok) {
         output$result_out <- renderText(
-          paste(capture.output(print(res)), collapse = "\n")
+          paste("Error while executing your code:", evaluation$error)
         )
         output$feedback_out <- renderText("")
+        output$explanation_out <- renderText("")
+        return()
       }
+
+      output$result_out <- renderText(
+        paste(capture.output(print(evaluation$result)), collapse = "\n")
+      )
+      output$feedback_out <- renderText("")
+      output$explanation_out <- renderText("")
     })
 
     observeEvent(input$check_btn, {
-      res <- result_val()
-      if (is.null(res)) {
+      evaluation <- evaluation_val()
+      if (is.null(evaluation) || !isTRUE(evaluation$ok)) {
         output$feedback_out <- renderText("Please run your code first.")
         return()
       }
 
-      expected <- questions_df$expected_output[current_id()]
-      if (compare(res, expected)) {
-        output$feedback_out <- renderText("✅ Correct!")
+      question <- current_question()
+      expected <- question$expected_output[[1]]
+      is_correct <- compare_answer_result(evaluation$result, expected)
+
+      if (is_correct) {
+        output$feedback_out <- renderText("Correct.")
       } else {
-        output$feedback_out <- renderText(paste0("❌ Incorrect. Expected: ", expected))
+        output$feedback_out <- renderText(
+          paste0("Incorrect. Expected: ", expected)
+        )
       }
+
+      explanation <- get_question_explanation(question$id[[1]], questions_df = questions_df)
+      output$explanation_out <- renderText(
+        paste(
+          explanation$topic,
+          sprintf("(%s)", explanation$section),
+          "",
+          explanation$summary,
+          sep = "\n"
+        )
+      )
     })
 
     observeEvent(input$next_btn, {
-      pos_new <- ifelse(pos() == nrow(questions_df), 1, pos() + 1)
-      pos(pos_new)
+      if (length(order_vec()) == 0) {
+        return()
+      }
+
+      pos(if (pos() >= length(order_vec())) 1L else pos() + 1L)
       updateTextAreaInput(session, "code_input", value = "")
-      result_val(NULL)
-      output$result_out   <- renderText("")
-      output$feedback_out <- renderText("")
+      clear_outputs()
     })
   })
 }
@@ -120,12 +195,12 @@ mod_learning_ui <- function(id, sections) {
   tagList(
     p(
       "This area explains the concepts used in the Testing Area. ",
-      "The loop can extend this repository with new learning notes."
+      "Each note is reused by the question explanation helpers."
     ),
     selectInput(
       ns("section_input"),
       "Knowledge section:",
-      choices  = sections,
+      choices = sections,
       selected = sections[[1]]
     ),
     uiOutput(ns("knowledge_cards"))
@@ -248,16 +323,27 @@ mod_sandbox_server <- function(id) {
       if (dataset_name == "Clinical cohort") {
         group <- sample(c("Control", "Treatment"), n, replace = TRUE)
         age <- pmax(18, round(rnorm(n, mean = 55, sd = 10)))
-        biomarker <- round(rnorm(n, mean = 50 + ifelse(group == "Treatment", -3, 0), sd = 8), 1)
-        linpred <- -4 + 0.05 * age + 0.04 * biomarker + ifelse(group == "Treatment", -0.4, 0)
+        biomarker <- round(
+          rnorm(n, mean = 50 + ifelse(group == "Treatment", -3, 0), sd = 8),
+          1
+        )
+        linpred <- -4 + 0.05 * age + 0.04 * biomarker +
+          ifelse(group == "Treatment", -0.4, 0)
         outcome <- stats::rbinom(n, size = 1, prob = stats::plogis(linpred))
         exposure <- ifelse(biomarker > stats::median(biomarker), "Yes", "No")
       } else if (dataset_name == "Case-control study") {
         outcome <- stats::rbinom(n, size = 1, prob = 0.45)
         group <- ifelse(outcome == 1, "Case", "Control")
         age <- pmax(18, round(rnorm(n, mean = 58 + 4 * outcome, sd = 9)))
-        exposure <- ifelse(stats::runif(n) < ifelse(outcome == 1, 0.65, 0.35), "Yes", "No")
-        biomarker <- round(rnorm(n, mean = 52 + 5 * outcome + 2 * (exposure == "Yes"), sd = 7), 1)
+        exposure <- ifelse(
+          stats::runif(n) < ifelse(outcome == 1, 0.65, 0.35),
+          "Yes",
+          "No"
+        )
+        biomarker <- round(
+          rnorm(n, mean = 52 + 5 * outcome + 2 * (exposure == "Yes"), sd = 7),
+          1
+        )
       } else {
         group <- sample(c("ArmA", "ArmB"), n, replace = TRUE)
         age <- pmax(18, round(rnorm(n, mean = 50, sd = 12)))
@@ -333,15 +419,15 @@ mod_sandbox_server <- function(id) {
     run_selected_analysis <- function(data, analysis_name, dataset_name) {
       if (analysis_name == "Descriptive stats by group") {
         groups <- unique(data$group)
-        summary_df <- do.call(rbind, lapply(groups, function(g) {
-          sub <- data[data$group == g, , drop = FALSE]
+        summary_df <- do.call(rbind, lapply(groups, function(group_name) {
+          subset_df <- data[data$group == group_name, , drop = FALSE]
           data.frame(
-            group = g,
-            n = nrow(sub),
-            mean_age = round(mean(sub$age), 2),
-            sd_age = round(stats::sd(sub$age), 2),
-            mean_biomarker = round(mean(sub$biomarker), 2),
-            outcome_rate = round(mean(sub$outcome), 3),
+            group = group_name,
+            n = nrow(subset_df),
+            mean_age = round(mean(subset_df$age), 2),
+            sd_age = round(stats::sd(subset_df$age), 2),
+            mean_biomarker = round(mean(subset_df$biomarker), 2),
+            outcome_rate = round(mean(subset_df$outcome), 3),
             stringsAsFactors = FALSE
           )
         }))
@@ -376,7 +462,11 @@ mod_sandbox_server <- function(id) {
       }
 
       if (analysis_name == "Logistic regression (outcome ~ age + biomarker + group)") {
-        fit <- stats::glm(outcome ~ age + biomarker + group, data = data, family = stats::binomial())
+        fit <- stats::glm(
+          outcome ~ age + biomarker + group,
+          data = data,
+          family = stats::binomial()
+        )
         coef_tbl <- summary(fit)$coefficients
 
         return(list(
@@ -400,18 +490,18 @@ mod_sandbox_server <- function(id) {
       )
       a <- as.numeric(table_2x2["Yes", "1"])
       b <- as.numeric(table_2x2["Yes", "0"])
-      c <- as.numeric(table_2x2["No", "1"])
+      c_val <- as.numeric(table_2x2["No", "1"])
       d <- as.numeric(table_2x2["No", "0"])
 
-      if (any(c(a, b, c, d) == 0)) {
+      if (any(c(a, b, c_val, d) == 0)) {
         a <- a + 0.5
         b <- b + 0.5
-        c <- c + 0.5
+        c_val <- c_val + 0.5
         d <- d + 0.5
       }
 
-      risk_ratio <- (a / (a + b)) / (c / (c + d))
-      odds_ratio <- (a * d) / (b * c)
+      risk_ratio <- (a / (a + b)) / (c_val / (c_val + d))
+      odds_ratio <- (a * d) / (b * c_val)
       measures_df <- data.frame(
         measure = c("Risk ratio", "Odds ratio"),
         value = round(c(risk_ratio, odds_ratio), 4),
@@ -502,16 +592,19 @@ mod_sandbox_server <- function(id) {
     })
 
     custom_result <- eventReactive(input$run_custom_btn, {
-      env <- new.env(parent = globalenv())
-      env$mock_data <- mock_data()
-      env$df <- mock_data()
+      evaluation <- evaluate_answer(
+        user_code = input$custom_code,
+        bindings = list(
+          mock_data = mock_data(),
+          df = mock_data()
+        )
+      )
 
-      res <- try(eval(parse(text = input$custom_code), envir = env), silent = TRUE)
-      if (inherits(res, "try-error")) {
-        return("Error while executing custom code.")
+      if (!evaluation$ok) {
+        return(paste("Error while executing custom code:", evaluation$error))
       }
 
-      paste(capture.output(print(res)), collapse = "\n")
+      paste(capture.output(print(evaluation$result)), collapse = "\n")
     })
 
     output$custom_out <- renderText({
@@ -531,7 +624,7 @@ ui <- fluidPage(
     id = "main_sheets",
     tabPanel(
       "Testing Area",
-      mod_testing_ui("testing_area")
+      mod_testing_ui("testing_area", topic_choices = topic_choices)
     ),
     tabPanel(
       "Learning Area",

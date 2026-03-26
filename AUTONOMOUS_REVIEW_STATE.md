@@ -317,3 +317,146 @@ Next candidates:
 - Add a question on instrumental variable estimation (two-stage least squares)
 - Add a question on restricted mean survival time (RMST) as an alternative to hazard ratio
 - Add test coverage for filter_questions() edge cases (empty result, multiple filters)
+
+## 2026-03-17 09:29
+Action: NO CHANGE — attempted type (a) addition of one instrumental-variable / two-stage least squares question plus matching causal-inference note, then reverted the touched source files after the required test suite failed.
+Literature: r/biostatistics discussion on foundational gaps in pharma/CRO training supported the choice of a causal-inference methods item.
+Files: none — reverted R/question_bank.R, inst/extdata/questions.csv, and inst/extdata/knowledge_repository.csv after validation failure
+Validation: fail — `testthat::test_dir('tests/testthat')` terminated early with existing suite failures (`[ FAIL 56 | PASS 19 ]`)
+Knowledge repo: not updated
+Commit: none
+Next candidates:
+- Triage the existing early `tests/testthat` failure so autonomous cycles can pass the mandatory validation gate again
+- Re-attempt the instrumental-variable / 2SLS question once the full test suite is green
+- Add a Kaplan-Meier log-rank test-statistic question if validation is restored and the IV item is deprioritized
+- Check whether `AUTONOMOUS_REVIEW_STATE.md` append order is causing stale `Next candidates` selection
+
+## 2026-03-17 10:02
+Action: type (b) fixed the test harness so `testthat::test_dir('tests/testthat')` bootstraps the `biostatAnki` namespace via a helper before assertions run.
+Literature: none — repo-state priority
+Files: tests/testthat/helper-load-package.R
+Validation: pass — question validation OK, knowledge repo OK, and `testthat::test_dir('tests/testthat')` ended with `[ FAIL 0 | WARN 0 | SKIP 0 | PASS 147 ]`
+Knowledge repo: n/a
+Commit: cc62ba1
+Next candidates:
+- Re-attempt the instrumental-variable / 2SLS question now that the mandatory validation gate is green
+- Add a Kaplan-Meier log-rank test-statistic question if the IV item is still deferred
+- Add a `get_question_explanation()` depth test for Q114
+- Check whether `AUTONOMOUS_REVIEW_STATE.md` append order is causing stale `Next candidates` selection
+
+## 2026-03-17 10:31
+Action: type (b) strengthened the Q114 `get_question_explanation()` test so RMST explanations must mention both the area-under-the-KM-curve computation and the hazard-ratio / proportional-hazards interpretation.
+Literature: none — repo-state priority
+Files: tests/testthat/test-questions.R
+Validation: pass — question validation OK, knowledge repo OK, and `testthat::test_dir('tests/testthat')` ended with `[ FAIL 0 | WARN 0 | SKIP 0 | PASS 150 ]`
+Knowledge repo: not updated
+Commit: ffae54a
+Next candidates:
+- Re-attempt the instrumental-variable / 2SLS question now that validation remains green
+- Add a Kaplan-Meier log-rank test-statistic question if the IV item is deferred again
+- Check whether `AUTONOMOUS_REVIEW_STATE.md` append order is causing stale `Next candidates` selection
+- Add a focused test for `get_question_explanation()` fallback behavior when no knowledge-repository row matches a question
+
+## 2026-03-17 11:04
+Action: type (b) added a focused `get_question_explanation()` test covering the fallback branch used when no knowledge-repository row matches a question's derived section/topic.
+Literature: none — repo-state priority
+Files: tests/testthat/test-questions.R; AUTONOMOUS_REVIEW_STATE.md
+Validation: pass — question validation OK, knowledge repo OK, and `testthat::test_dir('tests/testthat')` ended with `[ FAIL 0 | WARN 0 | SKIP 0 | PASS 155 ]`
+Knowledge repo: not updated
+Commit: 72cc8ef
+Next candidates:
+- Re-attempt the instrumental-variable / 2SLS question now that validation remains green
+- Add a Kaplan-Meier log-rank test-statistic question if the IV item is deferred again
+- Check whether `AUTONOMOUS_REVIEW_STATE.md` append order is causing stale `Next candidates` selection
+- Add a `get_question_explanation()` test that passes `questions_df` without metadata columns and verifies `.augment_question_metadata()` is used
+
+## 2026-03-17 11:32
+Action: type (a) added Q115 on the Wald / just-identified 2SLS instrumental-variable estimator and updated the causal-inference knowledge note to cover LATE identification assumptions.
+Literature: r/biostatistics discussion on foundational gaps in pharma/CRO training supported prioritizing a causal-inference methods item.
+Files: inst/extdata/questions.csv; inst/extdata/knowledge_repository.csv; AUTONOMOUS_REVIEW_STATE.md
+Validation: pass — question validation OK, knowledge repo OK, and `testthat::test_dir('tests/testthat')` ended with `[ FAIL 0 | WARN 0 | SKIP 0 | PASS 157 ]`
+Knowledge repo: updated existing `Causal inference and missing data` row to include IV / 2SLS and reference Q115
+Commit: b1b85a1
+Next candidates:
+- Add a Kaplan-Meier log-rank test-statistic question
+- Add explicit `instrumental variable` / `2SLS` keyword support in `.infer_question_topic()`
+- Add a `get_question_explanation()` test for Q115
+- Check whether `AUTONOMOUS_REVIEW_STATE.md` append order is causing stale `Next candidates` selection
+
+## 2026-03-17 12:02
+Action: type (b) added explicit instrumental-variable / 2SLS keyword support to `.infer_question_topic()` and a regression test to keep Q115 classified under causal inference.
+Literature: none — repo-state priority using the previous cycle's IV follow-up candidate.
+Files: R/question_bank.R; tests/testthat/test-questions.R; AUTONOMOUS_REVIEW_STATE.md
+Validation: pass — question validation OK, knowledge repo OK, and `testthat::test_dir('tests/testthat')` ended with `[ FAIL 0 | WARN 0 | SKIP 0 | PASS 160 ]`
+Knowledge repo: not updated
+Commit: 01f9a61
+Next candidates:
+- Add a `get_question_explanation()` test for Q115
+- Add a Kaplan-Meier log-rank test-statistic question
+- Check whether `AUTONOMOUS_REVIEW_STATE.md` append order is causing stale `Next candidates` selection
+- Add a focused metadata test for alternate IV phrasings such as `LATE` or `complier`
+
+## 2026-03-23 10:20
+Action: type (b) added a focused regression test so `get_question_explanation(115)` must return the causal-inference knowledge note covering the Wald / 2SLS estimand and LATE for compliers.
+Literature: none — repo-state priority using the most recent `Next candidates` item for Q115 explanation coverage.
+Files: tests/testthat/test-questions.R; AUTONOMOUS_REVIEW_STATE.md
+Validation: pass — question validation OK, knowledge repo OK, and `testthat::test_dir('tests/testthat')` ended with `[ FAIL 0 | WARN 0 | SKIP 0 | PASS 164 ]`
+Knowledge repo: not updated
+Commit: 1a4d46b
+Next candidates:
+- Add a Kaplan-Meier log-rank test-statistic question
+- Check whether `AUTONOMOUS_REVIEW_STATE.md` append order is causing stale `Next candidates` selection
+- Add a `get_question_explanation()` test that passes `questions_df` without metadata columns and verifies `.augment_question_metadata()` is used
+- Add a focused metadata test for alternate IV phrasings such as `LATE` or `complier`
+
+## 2026-03-23 10:32:43
+Action: type (b) added a regression test that passes `get_question_explanation()` a questions data frame without derived metadata and verifies `.augment_question_metadata()` is invoked before knowledge lookup.
+Literature: none — repo-state priority using the most recent `Next candidates` item for metadata augmentation coverage.
+Files: tests/testthat/test-questions.R; AUTONOMOUS_REVIEW_STATE.md
+Validation: pass — question validation OK, knowledge repo OK, and `testthat::test_dir('tests/testthat')` ended with `[ FAIL 0 | WARN 0 | SKIP 0 | PASS 166 ]`
+Knowledge repo: not updated
+Commit: e0b272f
+Next candidates:
+- Add a Kaplan-Meier log-rank test-statistic question
+- Check whether `AUTONOMOUS_REVIEW_STATE.md` append order is causing stale `Next candidates` selection
+- Add a focused metadata test for alternate IV phrasings such as `LATE` or `complier`
+- Add a `get_question_explanation()` regression test for invalid question ids with metadata-free input
+
+## 2026-03-23 11:02:49 +01:00
+Action: type (a) added Q116 on the Kaplan-Meier log-rank chi-square statistic and updated the survival knowledge note to cover the `(O - E)^2 / V` form.
+Literature: none — repo-state priority using the most recent `Next candidates` item for a survival-analysis question.
+Files: inst/extdata/questions.csv; inst/extdata/knowledge_repository.csv; AUTONOMOUS_REVIEW_STATE.md
+Validation: pass — question validation OK, knowledge repo OK, and `testthat::test_dir('tests/testthat')` ended with `[ FAIL 0 | WARN 0 | SKIP 0 | PASS 166 ]`
+Knowledge repo: updated existing `Survival and competing risks` row for Q116
+Commit: 030b66a
+Next candidates:
+- Add a `get_question_explanation()` test for Q116
+- Add explicit `log-rank` keyword support in `.infer_question_topic()`
+- Add a focused metadata test for alternate IV phrasings such as `LATE` or `complier`
+- Add a `get_question_explanation()` regression test for invalid question ids with metadata-free input
+
+## 2026-03-23 11:32:12 +01:00
+Action: type (b) added explicit `log-rank` keyword support to `.infer_question_topic()` and a regression test so log-rank chi-square prompts stay under survival instead of falling through to generic chi-square inference.
+Literature: none — repo-state priority using the most recent `Next candidates` item for survival topic inference coverage.
+Files: R/question_bank.R; tests/testthat/test-questions.R; AUTONOMOUS_REVIEW_STATE.md
+Validation: pass — question validation OK, knowledge repo OK, and `testthat::test_dir('tests/testthat')` ended with `[ FAIL 0 | WARN 0 | SKIP 0 | PASS 168 ]`
+Knowledge repo: not updated
+Commit: f01215d
+Next candidates:
+- Add a `get_question_explanation()` test for Q116
+- Check whether `AUTONOMOUS_REVIEW_STATE.md` append order is causing stale `Next candidates` selection
+- Add a focused metadata test for alternate IV phrasings such as `LATE` or `complier`
+- Add a `get_question_explanation()` regression test for invalid question ids with metadata-free input
+
+## 2026-03-23 12:01:56 +01:00
+Action: type (b) added a regression test so `get_question_explanation(116)` must return the survival knowledge note and expose the log-rank `(O - E)^2 / V` explanation.
+Literature: none — repo-state priority using the most recent `Next candidates` item for Q116 explanation coverage.
+Files: tests/testthat/test-questions.R; AUTONOMOUS_REVIEW_STATE.md
+Validation: pass — question validation OK, knowledge repo OK, and `testthat::test_dir('tests/testthat')` ended with `[ FAIL 0 | WARN 0 | SKIP 0 | PASS 173 ]` after adapting the final `tail -5` step to the PowerShell equivalent.
+Knowledge repo: not updated
+Commit: a1c60aa
+Next candidates:
+- Check whether `AUTONOMOUS_REVIEW_STATE.md` append order is causing stale `Next candidates` selection
+- Add a focused metadata test for alternate IV phrasings such as `LATE` or `complier`
+- Add a `get_question_explanation()` regression test for invalid question ids with metadata-free input
+- Add a survival explanation test that checks `questions_df` without metadata for Q116

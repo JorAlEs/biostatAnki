@@ -4,29 +4,24 @@
 \alias{load_questions}
 \title{Load Quiz Questions}
 \usage{
-load_questions()
+load_questions(include_metadata = FALSE)
+}
+\arguments{
+\item{include_metadata}{Logical. If `TRUE`, append derived metadata columns.}
 }
 \value{
 A `data.frame` containing all quiz questions.
 }
 \description{
-Reads the CSV file containing the bio-statistics questions bundled
-with the package into a data frame.  The file is stored under
-`inst/extdata/questions.csv` in the source repository and is
-installed into the package when built.  Each row in the returned
-data frame represents a single question with the following
-columns:
-}
-\details{
-* `id` -- integer identifier.
-* `question` -- the text of the question presented to the user.
-* `code` -- a canonical R expression that computes the answer.
-* `expected_output` -- the numeric answer expected when the code
-  is executed.
+Reads the packaged question bank into a data frame. By default the function
+returns the four persisted columns stored in `inst/extdata/questions.csv`.
+When `include_metadata = TRUE`, the returned data frame is augmented with
+derived `section`, `topic`, `difficulty`, and `tags` columns.
 }
 \examples{
-\dontrun{
-  questions <- load_questions()
-  head(questions)
-}
+questions <- load_questions()
+head(questions)
+
+questions_with_meta <- load_questions(include_metadata = TRUE)
+names(questions_with_meta)
 }

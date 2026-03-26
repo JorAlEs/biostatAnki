@@ -9,6 +9,8 @@ library(here)      # safe relative paths
 library(readr)     # fast CSV
 library(dplyr)     # data wrangling
 
+source(here::here("R", "check_answer.R"), local = TRUE)
+
 # ------------ paths -------------------------------------------------
 csv_path <- here::here("inst", "extdata", "questions.csv")
 bak_path <- here::here("inst", "extdata", "questions_backup.csv")
@@ -19,16 +21,6 @@ if (!file.exists(csv_path))
 if (!file.exists(bak_path))
   file.copy(csv_path, bak_path, overwrite = FALSE)
 
-# ------------ helper ------------------------------------------------
-classify_object <- function(x) {
-  if (is.matrix(x))             return("matrix")
-  if (is.data.frame(x))         return("table")
-  if (inherits(x, "gg"))        return("plot")
-  if (is.list(x))               return("list")
-  if (is.vector(x))             return("vector")
-  "unknown"
-}
-
 # ------------ process ----------------------------------------------
 questions <- read_csv(csv_path, show_col_types = FALSE)
 
@@ -36,19 +28,18 @@ fixed <- questions %>%
   rowwise() %>%
   mutate(
     .res = list(
-      try(
-        eval(parse(text = code), envir = new.env(parent = globalenv())),
-        silent = TRUE
+      .quiz_evaluate_code(
+        user_code = code
       )
     ),
     expected_output = {
       res <- .res[[1]]
-      if (inherits(res, "try-error")) {
+      if (!res$ok) {
         expected_output           # keep original on error
-      } else if (is.numeric(res) && length(res) == 1) {
-        format(res, digits = 15, trim = TRUE)
+      } else if (is.numeric(res$result) && length(res$result) == 1) {
+        format(res$result, digits = 15, trim = TRUE)
       } else {
-        classify_object(res)
+        .classify_object_result(res$result)
       }
     }
   ) %>%

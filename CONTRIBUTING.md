@@ -37,11 +37,13 @@ You need **R >= 3.6.0** and the [renv](https://rstudio.github.io/renv/) package.
 renv::restore()
 
 # 3. Load the package in development mode
-devtools::load_all()
+pkgload::load_all()
 ```
 
 > **Tip:** If you use RStudio, open `biostatAnki.Rproj` and renv will activate
-> automatically.
+> automatically. Non-interactive scripts skip `renv` activation by default;
+> set `BIOSTATANKI_ACTIVATE_RENV=true` if you want that behavior in CI-like
+> local scripts.
 
 ---
 
@@ -61,7 +63,7 @@ devtools::check()
 testthat::test_file("tests/testthat/test-questions.R")
 ```
 
-All 52 tests must pass before opening a pull request.
+All tests must pass before opening a pull request.
 
 ---
 
@@ -96,7 +98,7 @@ for discoverability inside the package.
 
 ## Adding or editing questions
 
-Questions live in `inst/extdata/questions.csv` with four columns:
+Questions live in `inst/extdata/questions.csv` with four persisted columns:
 
 | Column | Description |
 |--------|-------------|
@@ -109,7 +111,7 @@ Questions live in `inst/extdata/questions.csv` with four columns:
 
 1. Append rows to `questions.csv` (keep `id` sequential).
 2. Run `fix_questions.R` to recalculate `expected_output` values and
-   apply object-type keywords (`vector`, `matrix`):
+   apply object-type keywords (`vector`, `matrix`, `table`, `list`, `plot`):
 
 ```r
 # Requires: dplyr, here, readr (install if needed)
@@ -122,10 +124,31 @@ source("fix_questions.R")
 validate_questions()
 ```
 
-4. Run the full test suite to make sure nothing regressed:
+4. Check derived topic metadata and explanations when the new question falls in
+   a new subject area:
+
+```r
+load_questions(include_metadata = TRUE)
+list_question_topics()
+summarize_question_bank()
+get_question_explanation(<new_id>)
+```
+
+5. Run the full test suite to make sure nothing regressed:
 
 ```r
 devtools::test()
+```
+
+For a single draft row before touching `questions.csv`, use:
+
+```r
+validate_question_row(list(
+  id = 999,
+  question = "Compute 1 + 1",
+  code = "1 + 1",
+  expected_output = "2"
+))
 ```
 
 ---

@@ -1,19 +1,20 @@
 Package: biostatAnki
 Type: Package
 Title: Interactive BioStatistics Quiz via Shiny
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: c(person("Jorge", "Alcantara", email = "jorge.alcantara.espinosa@hotmail.com", role = c("aut", "cre")))
 Maintainer: Jorge Alcantara <jorge.alcantara.espinosa@hotmail.com>
 Description: Provides a Shiny application presenting biostatistics questions
     in an Anki-like format. Users write R code to answer each question,
-    and the app evaluates the result against the expected output. The
-    questions cover descriptive statistics, correlation, simple linear
-    regression, survival analysis, causal inference, Bayesian inference,
-    epidemiological measures, multiple testing (Bonferroni, FDR),
-    propensity score matching, decision curve analysis, prediction model
-    performance (AUC/C-statistic), and mixed models (ICC). Shiny's
-    reactive programming model automatically updates feedback when users
-    submit their answers.
+    and the app evaluates the result against the expected output through
+    a shared quiz engine that is also reused by the programmatic API.
+    The package includes metadata-aware helpers for topic filtering,
+    sampling, and explanation lookup. The questions cover descriptive
+    statistics, correlation, simple linear regression, survival analysis,
+    causal inference, Bayesian inference, epidemiological measures,
+    multiple testing (Bonferroni, FDR), propensity score matching,
+    decision curve analysis, prediction model performance
+    (AUC/C-statistic, Brier score), and mixed models (ICC).
 Depends: R (>= 3.6.0)
 Imports:
     httpuv,

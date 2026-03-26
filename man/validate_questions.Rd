@@ -2,7 +2,7 @@
 % Please edit documentation in R/validate_questions.R
 \name{validate_questions}
 \alias{validate_questions}
-\title{Validate all quiz questions}
+\title{Validate all Quiz Questions}
 \usage{
 validate_questions(
   questions_df = biostatAnki::load_questions(),
@@ -10,16 +10,21 @@ validate_questions(
 )
 }
 \arguments{
-\item{questions_df}{A data.frame with columns \code{id}, \code{question},
-\code{code}, and \code{expected_output}.  Defaults to
-\code{biostatAnki::load_questions()}.}
+\item{questions_df}{A `data.frame` with columns `id`, `question`, `code`, and
+`expected_output`. Defaults to `load_questions()`.}
 
-\item{tolerance}{Numeric tolerance used when comparing numeric results.
-Default \code{1e-6}.}
+\item{tolerance}{Numeric tolerance used when comparing numeric results.}
+}
+\value{
+Invisibly returns `questions_df` augmented with `valid` and `detail`
+  columns.
 }
 \description{
-Evaluates every code snippet in `questions_df`
-and checks it against `expected_output` via the same
-comparison logic used in the app.
-Returns an invisible data.frame summarising failures.
+Evaluates every canonical code snippet in `questions_df` and checks it
+against `expected_output` via the same shared comparison logic used by the
+app and package helpers.
+}
+\examples{
+validation <- validate_questions()
+all(validation$valid)
 }
